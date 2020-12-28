@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "303616165085",
+    "project_id": "ratemytutor-ca07a",
+    "storage_bucket": "ratemytutor-ca07a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303616165085:android:133ee5f6a9957b65f10734",
+        "android_client_info": {
+          "package_name": "com.example.rate_my_tutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303616165085-7vd5a5vetj64l3kqi0am165enrlkfr20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFW_r90tqFRGC18tF39nhqmIL_sN6SDug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303616165085-7vd5a5vetj64l3kqi0am165enrlkfr20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
