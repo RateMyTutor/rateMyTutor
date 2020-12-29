@@ -52,7 +52,13 @@ class TutorPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Saadman13', style: TextStyle(fontSize: 20),
+                            Row(
+                              children: [
+                                Text('Saadman13', style: TextStyle(fontSize: 20),
+                                ),
+                                Text('O-Level'),
+                                Text('Kind')
+                              ],
                             ),
                             Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
                                 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
