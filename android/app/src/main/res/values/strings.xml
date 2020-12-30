@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RateMyTutor</string>
+    <string name="facebook_app_id">310154860323416</string>
+    <string name="fb_login_protocol_scheme">fb310154860323416</string>
+</resources>

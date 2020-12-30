@@ -4,9 +4,11 @@ class Tutor{
   String tutorID;
   String tutorLocation;
   String tutorSubject;
-  double tutorRating;
+  int tutorRating;
+  String tutorInstituition;
+  String tutorCurriculum;
 
-  Tutor({this.tutorName,this.tutorID,this.tutorLocation,this.tutorRating,this.tutorSubject});
+  Tutor({this.tutorName,this.tutorID,this.tutorLocation,this.tutorRating,this.tutorSubject,this.tutorInstituition,this.tutorCurriculum});
 
 
 }// class Tutor
