@@ -1,12 +1,13 @@
-class Tutor{
+class Review{
 
   String reviewerID;
-  String tutorID;
-  String tutorLocation;
-  String tutorSubject;
-  double tutorRating;
+  String reviewerStatus;
+  String reviewTutorID;
+  String reviewText;
+  String reviewFilter;
+  int reviewRating;
 
-  Tutor({this.reviewerID,this.tutorID,this.tutorLocation,this.tutorRating,this.tutorSubject});
+  Review({this.reviewerID,this.reviewerStatus,this.reviewTutorID,this.reviewText,this.reviewFilter,this.reviewRating});
 
 
 }

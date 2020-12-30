@@ -1,5 +1,6 @@
 import 'package:rate_my_tutor/AuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rate_my_tutor/Screens/tutorPage.dart';
 import 'signUpPage.dart';
 import 'homePage.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,10 @@ class _LoginPageState extends State<LoginPage> {
                     RaisedButton(
                       onPressed: () async {
                         //TODO: Go to SignUp Page
-                        Navigator.pushNamed(context,SignUpPage.signUpPageID);
+                        //Navigator.pushNamed(context,SignUpPage.signUpPageID);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TutorPage()));
                       },
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(
