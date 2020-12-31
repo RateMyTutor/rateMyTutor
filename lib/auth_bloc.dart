@@ -30,6 +30,7 @@ class AuthBloc {
       return result.user;
     }catch(error){
       print(error);
+      print("hello");
       return null;
     }// catch
     return null;

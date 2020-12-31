@@ -1,7 +1,11 @@
 
 import 'package:rate_my_tutor/AuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:rate_my_tutor/Screens/tutorPage.dart';
+
 import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
+
 import 'signUpPage.dart';
 import 'homePage.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +15,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_tutor/auth_bloc.dart';
+
 class LoginPage extends StatefulWidget {
 
   static String loginPageID = "LoginPage";
@@ -143,6 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         //TODO: Go to SignUp Page
                         Navigator.pushNamed(context,SignUpPage.signUpPageID);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) => HomePage()));
                       },
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(

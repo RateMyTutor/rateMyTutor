@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/dummyScreen.dart';
+import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 class TutorSearch extends SearchDelegate<String> {
 
@@ -102,7 +103,7 @@ class TutorSearch extends SearchDelegate<String> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DummyScreen(tutorObject: list[index]),
+              builder: (context) => TutorPage(tutorObject: list[index]),
             ),
           );
         },
