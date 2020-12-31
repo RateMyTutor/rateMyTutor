@@ -15,6 +15,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_tutor/auth_bloc.dart';
+
 class LoginPage extends StatefulWidget {
 
   static String loginPageID = "LoginPage";
@@ -149,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamed(context,SignUpPage.signUpPageID);
                         // Navigator.push(
                         //     context,
-                        //     MaterialPageRoute(builder: (context) => TutorPage()));
+                        //     MaterialPageRoute(builder: (context) => HomePage()));
                       },
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(

@@ -1,8 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:rate_my_tutor/Models/Review.dart';
+import 'package:rate_my_tutor/Models/Tutor.dart';
+import 'package:rate_my_tutor/Screens/addReviewPage.dart';
+
 
 class TutorPage extends StatefulWidget {
+
+  Tutor tutorObject;
+
+  TutorPage({@required this.tutorObject});
+
   @override
   _TutorPageState createState() => _TutorPageState();
 }
@@ -11,6 +21,7 @@ class _TutorPageState extends State<TutorPage> {
   List<Review> reviewList = [];
   final firestoreInstance = FirebaseFirestore.instance;
   final _db = FirebaseFirestore.instance;
+
 
 
   @override
@@ -24,25 +35,24 @@ class _TutorPageState extends State<TutorPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Smriti Dhiman',
+                  widget.tutorObject.tutorName,
                   style: TextStyle(fontSize: 24),
                 ),
                 Text(
-                  'Rating: ',
+                  widget.tutorObject.tutorSubject,
                   style: TextStyle(fontSize: 20),
                 ),
-                Text(
-                  'Ex-math teacher at Scholastica',
-                  style: TextStyle(fontSize: 20),
-                ),
-                Text(
-                  'MATH',
-                  style: TextStyle(fontSize: 20),
-                ),
-                Text('Location: Academia (Gulshan)',
+                Text(widget.tutorObject.tutorInstituition,
                     style: TextStyle(fontSize: 20)),
                 SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                Text(
+                  'Rating: '+ widget.tutorObject.tutorRating.toString() +'/5',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Text(
                   'Reviews',
@@ -78,29 +88,48 @@ class _TutorPageState extends State<TutorPage> {
                                             style: TextStyle(fontSize: 20),
                                           ),
                                           SizedBox(
-                                            width: 130,
+                                            width: 10,
                                           ),
                                           Container(
-                                            color: Colors.pink[50],
+                                            color: Colors.blue[50],
                                             child: Text(
                                                 snapshot
                                                     .data[index].reviewerStatus,
                                                 style: TextStyle(fontSize: 18)),
                                           ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Container(
-                                            color: Colors.pink[50],
-                                            child: Text(
-                                                snapshot
-                                                    .data[index].reviewFilter,
-                                                style: TextStyle(fontSize: 18)),
-                                          ),
                                         ],
                                       ),
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      FittedBox(
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                'Rating: '+ snapshot.data[index].reviewRating.toString()+'/5',
+                                              style: TextStyle(
+                                                fontSize: 18
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 6,
+                                            ),
+                                            Container(
+                                              color: Colors.pink[50],
+                                              child: Text(
+                                                  snapshot
+                                                      .data[index].reviewFilter,
+                                                  style: TextStyle(fontSize: 16)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      SizedBox(
+                                        height: 4,
+                                      ),
                                       Text(
-                                        snapshot.data[index].reviewText,
+                                        truncateText(snapshot.data[index].reviewText),
                                         style: TextStyle(fontSize: 16),
                                       ),
                                     ],
@@ -114,6 +143,16 @@ class _TutorPageState extends State<TutorPage> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightBlueAccent,
+          foregroundColor: Colors.black,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddReviewPage()),);
+          },
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
@@ -122,7 +161,7 @@ class _TutorPageState extends State<TutorPage> {
     List<Review> reviewList = [];
     final reviews = await _db
         .collection("Reviews")
-        .where("reviewTutorID", isEqualTo: "AYsOsdCfLyMQh2uIdX2y")
+        .where("reviewTutorID", isEqualTo: widget.tutorObject.tutorID)
         .get();
 
     for (var review in reviews.docs) {
@@ -134,28 +173,14 @@ class _TutorPageState extends State<TutorPage> {
           reviewFilter: review.data()["reviewFilter"],
           reviewText: review.data()["reviewText"]);
 
-      reviewList.add(newReview); // add to the list
+      reviewList.add(newReview);
     } // for loop
-    print(reviewList.length);
-    print("yelloww");
     return reviewList;
   }
+  String truncateText(String text) {
+    int cutoff = 170;
+    return (text.length <= cutoff)
+        ? text
+        : '${text.substring(0, cutoff)}...';
+  }
 }
-
-// class something{
-//
-//   static void getReviewsFromDB() async {
-//   List<Review> reviewList = [];
-//   final reviews = await _db.collection("Reviews").where("reviewTutorID", isEqualTo: "AYsOsdCfLyMQh2uIdX2y").get();
-//   for( var review in reviews.docs){
-//     final newReview = Review(reviewerID: review.data()["reviewerID"], reviewerStatus: review.data()["reviewerStatus"], reviewTutorID:
-//     review.data()["reviewTutorID"], reviewRating: review.data()["reviewRating"],reviewFilter: review.data()["reviewFilter"],reviewText: review.data()["reviewText"]);
-//     reviewList.add(newReview); // add to the list
-//   }// for loop
-//   for(Review review in reviewList) {
-//     print(review);
-//   }
-//
-//
-//   }// getTutorsFromDB
-//   }
