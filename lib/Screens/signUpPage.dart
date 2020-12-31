@@ -115,14 +115,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 "userID" : user.getUserID(),
 
                               }).then((_){
-
                             //if successful, go to home page
                             Navigator.pushNamed(context, HomePage.homePageID);
-
-
                           });
-
-
                         }
                       }catch(e){
                         print(e.toString());

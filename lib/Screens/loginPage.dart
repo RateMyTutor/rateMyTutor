@@ -1,12 +1,20 @@
+
 import 'package:rate_my_tutor/AuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:rate_my_tutor/Screens/tutorPage.dart';
+
+import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
+
 import 'signUpPage.dart';
 import 'homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_my_tutor/Models/UserArg.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_my_tutor/auth_bloc.dart';
 class LoginPage extends StatefulWidget {
 
   static String loginPageID = "LoginPage";
@@ -17,14 +25,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  final db = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   bool hidePassword = true;
   String email;
   String password;
 
+
   @override
   Widget build(BuildContext context) {
+    var authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
 
       backgroundColor: Colors.white,
@@ -35,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 100.0, horizontal: 60.0),
+                  padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 60.0),
                   child: Center(
                     child: CircleAvatar(
                       backgroundColor: Colors.brown.shade800,
@@ -135,10 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                     RaisedButton(
                       onPressed: () async {
                         //TODO: Go to SignUp Page
-                        //Navigator.pushNamed(context,SignUpPage.signUpPageID);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => TutorPage()));
+                        Navigator.pushNamed(context,SignUpPage.signUpPageID);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(builder: (context) => TutorPage()));
                       },
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(
@@ -149,6 +160,62 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 SizedBox(
+                  height: 10.0,
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SignInButton(
+                      Buttons.Facebook,
+                      onPressed: () async {
+                       User user =  await authBloc.loginFaceBook();
+                       print("User print");
+                       print(user);
+                       if(user != null) {
+                         bool firstLogin = await isFirstLogin(user);
+                         if(firstLogin){
+                           print("Confirmed First time : So go to firstTime page");
+                           Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+                         }else{
+                           Navigator.pushNamed(context, HomePage.homePageID);
+                         }
+                         print("hello");
+                         print(user.displayName);
+                         print(user.uid);
+                       }; // if
+
+                      },
+                    ),
+                      SignInButton(
+                        Buttons.GoogleDark,
+                        onPressed: () async{
+                          User user = await authBloc.loginGoogle();
+                          print("Logged in with google");
+                          if(user != null){
+                            bool firstLogin = await isFirstLogin(user);
+                            if(firstLogin){
+                              print("Confirmed First time : So go to firstTime page");
+                              Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+                            }else{
+                              Navigator.pushNamed(context, HomePage.homePageID);
+                            }
+
+                            print(user.email);
+                            print(user.uid);
+                            Navigator.pushNamed(context, HomePage.homePageID);
+                          }else{
+                            print(user);
+                            print("Failed");
+                          }
+
+                        },
+                      ),
+                  ],
+                  ),
+                ),
+
+                SizedBox(
                   height: 20.0,
                 ),
               ],
@@ -156,7 +223,22 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
     );
-  }
-}
+  }// build
+
+// method checks if the user is logging in for the first time or not
+Future<bool> isFirstLogin(User user) async{
+
+    DocumentSnapshot doc = await  db.collection("Users").doc(user.uid).get();
+    if(doc.exists){
+      return false;
+    }else{
+      print("Document doesn't exist, so user is first time logging in");
+      return true;
+    }
+}// isFirstLogin
+
+
+
+}// class
 
 

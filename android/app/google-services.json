@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "303616165085-hip9c0oboemv5605ps361240josve45h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rate_my_tutor",
+            "certificate_hash": "3572f141c396f22a4358694a0f948cfa78f98d7b"
+          }
+        },
+        {
           "client_id": "303616165085-7vd5a5vetj64l3kqi0am165enrlkfr20.apps.googleusercontent.com",
           "client_type": 3
         }
