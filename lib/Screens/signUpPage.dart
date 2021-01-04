@@ -76,29 +76,33 @@ class _SignUpPageState extends State<SignUpPage> {
                     )
                 ),
                 SizedBox(height: 20.0,),
-                DropdownButton(
-                  hint: Text('Select an option:'),
-                  dropdownColor: Colors.grey,
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton(
+                    hint: Text('Select an option:'),
+                    dropdownColor: Colors.grey[200],
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 36,
+                    isExpanded: true,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22
+                    ),
+                    value: status,
+                    onChanged: (newValue) {
+                      setState((){
+                        status = newValue;
+                      });
+                    },
+                    items: statusOptions.map((valueItem){
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
                   ),
-                  value: status,
-                  onChanged: (newValue) {
-                    setState((){
-                      status = newValue;
-                    });
-                  },
-                  items: statusOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
                 ),
+                SizedBox(height: 20,),
                 ElevatedButton(
                     onPressed: () async{
                       try{

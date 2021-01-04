@@ -1,11 +1,10 @@
-
 import 'package:rate_my_tutor/AuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rate_my_tutor/Screens/addReviewPage.dart';
 
 import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
-import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
 
 import 'signUpPage.dart';
 import 'homePage.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_tutor/auth_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -42,9 +40,11 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
 
       backgroundColor: Colors.white,
-        body: ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: SingleChildScrollView(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,9 +52,10 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 60.0),
                   child: Center(
                     child: CircleAvatar(
+                      radius: 40,
                       backgroundColor: Colors.brown.shade800,
                       child: Text(
-                          'APP'
+                          'ICON'
                       ),
                     ),
                   ),
@@ -152,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamed(context,SignUpPage.signUpPageID);
                         // Navigator.push(
                         //     context,
-                        //     MaterialPageRoute(builder: (context) => HomePage()));
+                        //     MaterialPageRoute(builder: (context) => AddReviewPage()));
                       },
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(
@@ -163,33 +164,33 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 SizedBox(
-                  height: 10.0,
+                  height: 30.0,
                 ),
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SignInButton(
-                      Buttons.Facebook,
-                      onPressed: () async {
-                       User user =  await authBloc.loginFaceBook();
-                       print("User print");
-                       print(user);
-                       if(user != null) {
-                         bool firstLogin = await isFirstLogin(user);
-                         if(firstLogin){
-                           print("Confirmed First time : So go to firstTime page");
-                           Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                         }else{
-                           Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
-                         }
-                         print("hello");
-                         print(user.displayName);
-                         print(user.uid);
-                       }; // if
+                        Buttons.Facebook,
+                        onPressed: () async {
+                          User user =  await authBloc.loginFaceBook();
+                          print("User print");
+                          print(user);
+                          if(user != null) {
+                            bool firstLogin = await isFirstLogin(user);
+                            if(firstLogin){
+                              print("Confirmed First time : So go to firstTime page");
+                              Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+                            }else{
+                              Navigator.pushNamed(context, HomePage.homePageID);
+                            }
+                            print("hello");
+                            print(user.displayName);
+                            print(user.uid);
+                          }; // if
 
-                      },
-                    ),
+                        },
+                      ),
                       SignInButton(
                         Buttons.GoogleDark,
                         onPressed: () async{
@@ -214,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
 
                         },
                       ),
-                  ],
+                    ],
                   ),
                 ),
 
@@ -225,11 +226,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+      ),
     );
   }// build
 
 // method checks if the user is logging in for the first time or not
-Future<bool> isFirstLogin(User user) async{
+  Future<bool> isFirstLogin(User user) async{
 
     DocumentSnapshot doc = await  db.collection("Users").doc(user.uid).get();
     if(doc.exists){
@@ -238,10 +240,8 @@ Future<bool> isFirstLogin(User user) async{
       print("Document doesn't exist, so user is first time logging in");
       return true;
     }
-}// isFirstLogin
+  }// isFirstLogin
 
 
 
 }// class
-
-
