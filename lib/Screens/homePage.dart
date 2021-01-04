@@ -1,9 +1,11 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
+import 'package:rate_my_tutor/Screens/advancedSearch.dart';
 import 'package:rate_my_tutor/Screens/loginPage.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/tutorSearch.dart';
@@ -21,11 +23,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  int selectedIndex = 0;
   final FirebaseAuth uAuth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
 
+
   SearchBar searchBar;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +65,10 @@ class _HomePageState extends State<HomePage> {
       print("USer ID : " + uAuth.currentUser.uid);
       print("Lets see if we can still see it ");
       print(uAuth.currentUser.displayName);
+      },
+    ),
+      ),
 
-    },
-    ),
-    ),
     );
   }
 

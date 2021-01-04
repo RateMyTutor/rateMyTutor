@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
+import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
 
 import 'signUpPage.dart';
 import 'homePage.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_my_tutor/auth_bloc.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -179,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                            print("Confirmed First time : So go to firstTime page");
                            Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
                          }else{
-                           Navigator.pushNamed(context, HomePage.homePageID);
+                           Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
                          }
                          print("hello");
                          print(user.displayName);
