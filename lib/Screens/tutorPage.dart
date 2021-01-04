@@ -21,8 +21,7 @@ class _TutorPageState extends State<TutorPage> {
   List<Review> reviewList = [];
   final firestoreInstance = FirebaseFirestore.instance;
   final _db = FirebaseFirestore.instance;
-
-
+  ScrollController _scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +30,7 @@ class _TutorPageState extends State<TutorPage> {
         body: Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 40.0, right: 16.0),
           child: SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -149,7 +149,8 @@ class _TutorPageState extends State<TutorPage> {
           onPressed: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddReviewPage()),);
+                MaterialPageRoute(builder: (context) => AddReviewPage(tutorObject: widget.tutorObject,)),).then((value) => setState((){
+                  _scrollController.jumpTo(0.0);}));
           },
           child: Icon(Icons.add),
         ),
@@ -159,22 +160,24 @@ class _TutorPageState extends State<TutorPage> {
 
   Future<List<Review>> getReviewsFromDB() async {
     List<Review> reviewList = [];
+    print(widget.tutorObject.tutorID);
     final reviews = await _db
         .collection("Reviews")
         .where("reviewTutorID", isEqualTo: widget.tutorObject.tutorID)
         .get();
-
     for (var review in reviews.docs) {
       final newReview = Review(
-          reviewerID: review.data()["reviewerID"],
-          reviewerStatus: review.data()["reviewerStatus"],
-          reviewTutorID: review.data()["reviewTutorID"],
-          reviewRating: review.data()["reviewRating"],
-          reviewFilter: review.data()["reviewFilter"],
-          reviewText: review.data()["reviewText"]);
-
+          reviewerID: review["reviewerID"],
+          reviewerStatus: review["reviewerStatus"],
+          reviewTutorID: review["reviewTutorID"],
+          reviewRating: review["reviewRating"].toInt(),
+          reviewFilter: review["reviewFilter"],
+          reviewText: review["reviewText"]);
+      print(newReview);
       reviewList.add(newReview);
+
     } // for loop
+    print(reviewList);
     return reviewList;
   }
   String truncateText(String text) {

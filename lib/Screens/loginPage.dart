@@ -1,6 +1,7 @@
 
 import 'package:rate_my_tutor/AuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rate_my_tutor/Screens/addReviewPage.dart';
 
 import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
@@ -43,183 +44,187 @@ class _LoginPageState extends State<LoginPage> {
         body: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 60.0),
-                  child: Center(
-                    child: CircleAvatar(
-                      backgroundColor: Colors.brown.shade800,
-                      child: Text(
-                          'APP'
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 60.0),
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.brown.shade800,
+                        child: Text(
+                            'ICON'
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Text(
-                  'Email Address',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'Email Address',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextField(
-                  onChanged: (value){
-                    email = value;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email Address',
+                  SizedBox(
+                    height: 10.0,
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextField(
-                  onChanged: (value){
-                    password = value;
-                  },
-                  obscureText: hidePassword,
-                  decoration: InputDecoration(
-                      suffix: InkWell(
-                        onTap: (){
-                          setState(() {
-                            hidePassword = hidePassword == true ? false : true;
-                          });
-                        },
-                        child: Icon(Icons.visibility),
-                      ),
+                  TextField(
+                    onChanged: (value){
+                      email = value;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Password'
+                      labelText: 'Email Address',
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RaisedButton(
-                      onPressed: () async {
-                        //TODO: Go to home
-                        setState(() {
-                          //make the spinner spin
-                          showSpinner = true;
-                        });
-                        try{
-                          final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                          if(user != null) {
-                            Navigator.pushNamed(context, HomePage.homePageID);
-                          }// if
-                        }catch(e){
-                          print(e.toString());
-                        }
-                        setState(() {
-                          showSpinner = false;
-                        });
-
-                      },// try
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Text("Login"),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    'Password',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(
-                      width: 10.0,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  TextField(
+                    onChanged: (value){
+                      password = value;
+                    },
+                    obscureText: hidePassword,
+                    decoration: InputDecoration(
+                        suffix: InkWell(
+                          onTap: (){
+                            setState(() {
+                              hidePassword = hidePassword == true ? false : true;
+                            });
+                          },
+                          child: Icon(Icons.visibility),
+                        ),
+                        border: OutlineInputBorder(),
+                        labelText: 'Password'
                     ),
-                    //Sign up Button
-                    RaisedButton(
-                      onPressed: () async {
-                        //TODO: Go to SignUp Page
-                        Navigator.pushNamed(context,SignUpPage.signUpPageID);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => HomePage()));
-                      },
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Text("Sign Up"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Center(
-                  child: Column(
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SignInButton(
-                      Buttons.Facebook,
-                      onPressed: () async {
-                       User user =  await authBloc.loginFaceBook();
-                       print("User print");
-                       print(user);
-                       if(user != null) {
-                         bool firstLogin = await isFirstLogin(user);
-                         if(firstLogin){
-                           print("Confirmed First time : So go to firstTime page");
-                           Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                         }else{
-                           Navigator.pushNamed(context, HomePage.homePageID);
-                         }
-                         print("hello");
-                         print(user.displayName);
-                         print(user.uid);
-                       }; // if
-
-                      },
-                    ),
-                      SignInButton(
-                        Buttons.GoogleDark,
-                        onPressed: () async{
-                          User user = await authBloc.loginGoogle();
-                          print("Logged in with google");
-                          if(user != null){
-                            bool firstLogin = await isFirstLogin(user);
-                            if(firstLogin){
-                              print("Confirmed First time : So go to firstTime page");
-                              Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                            }else{
+                      RaisedButton(
+                        onPressed: () async {
+                          //TODO: Go to home
+                          setState(() {
+                            //make the spinner spin
+                            showSpinner = true;
+                          });
+                          try{
+                            final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                            if(user != null) {
                               Navigator.pushNamed(context, HomePage.homePageID);
-                            }
-
-                            print(user.email);
-                            print(user.uid);
-                            Navigator.pushNamed(context, HomePage.homePageID);
-                          }else{
-                            print(user);
-                            print("Failed");
+                            }// if
+                          }catch(e){
+                            print(e.toString());
                           }
+                          setState(() {
+                            showSpinner = false;
+                          });
+
+                        },// try
+                        color: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text("Login"),
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      //Sign up Button
+                      RaisedButton(
+                        onPressed: () async {
+                          //TODO: Go to SignUp Page
+                          Navigator.pushNamed(context,SignUpPage.signUpPageID);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(builder: (context) => AddReviewPage()));
+                        },
+                        color: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text("Sign Up"),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SignInButton(
+                        Buttons.Facebook,
+                        onPressed: () async {
+                         User user =  await authBloc.loginFaceBook();
+                         print("User print");
+                         print(user);
+                         if(user != null) {
+                           bool firstLogin = await isFirstLogin(user);
+                           if(firstLogin){
+                             print("Confirmed First time : So go to firstTime page");
+                             Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+                           }else{
+                             Navigator.pushNamed(context, HomePage.homePageID);
+                           }
+                           print("hello");
+                           print(user.displayName);
+                           print(user.uid);
+                         }; // if
 
                         },
                       ),
-                  ],
-                  ),
-                ),
+                        SignInButton(
+                          Buttons.GoogleDark,
+                          onPressed: () async{
+                            User user = await authBloc.loginGoogle();
+                            print("Logged in with google");
+                            if(user != null){
+                              bool firstLogin = await isFirstLogin(user);
+                              if(firstLogin){
+                                print("Confirmed First time : So go to firstTime page");
+                                Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+                              }else{
+                                Navigator.pushNamed(context, HomePage.homePageID);
+                              }
 
-                SizedBox(
-                  height: 20.0,
-                ),
-              ],
+                              print(user.email);
+                              print(user.uid);
+                              Navigator.pushNamed(context, HomePage.homePageID);
+                            }else{
+                              print(user);
+                              print("Failed");
+                            }
+
+                          },
+                        ),
+                    ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
