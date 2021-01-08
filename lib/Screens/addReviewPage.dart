@@ -52,7 +52,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
             children: [
               Text(
                 "Tags",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               Wrap(
                 spacing: 8.0,
@@ -68,7 +68,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
               ),
               Text(
                 "Curriculum",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               RadioListTile(
                 value: 1,
@@ -99,7 +99,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
               ),
               Text(
                 "Rating",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               RatingBar.builder(
                 initialRating: 3,
@@ -118,11 +118,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
               ),
               Text(
                 "Body",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               TextField(
                 keyboardType: TextInputType.multiline,
-                maxLines: 9,
+                maxLines: 8,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Type your review here',
@@ -152,7 +152,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                 child: FlatButton(
                     color: Colors.blue[200],
                     onPressed: () async {
-                      await db.collection("Reviews").add({
+                      await db.collection("test").add({
                         "reviewText": myController.text,
                         "reviewerStatus": curriculum,
                         "reviewTutorID": widget.tutorObject.tutorID,

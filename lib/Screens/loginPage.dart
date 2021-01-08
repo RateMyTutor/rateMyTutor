@@ -5,6 +5,7 @@ import 'package:rate_my_tutor/Screens/addReviewPage.dart';
 import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
+import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
 
 import 'signUpPage.dart';
 import 'homePage.dart';
@@ -127,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                         try{
                           final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
                           if(user != null) {
-                            Navigator.pushNamed(context, HomePage.homePageID);
+                            Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
                           }// if
                         }catch(e){
                           print(e.toString());

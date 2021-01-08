@@ -76,7 +76,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                 DropdownButtonFormField(
 
                   hint: Text("Select a subject"),
-                  dropdownColor: Colors.grey,
+                  dropdownColor: Colors.grey[200],
                   icon: Icon(Icons.arrow_drop_down),
                   iconSize: 36,
                   isExpanded: true,
@@ -103,7 +103,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                 DropdownButtonFormField(
 
                   hint: Text("Select a location"),
-                  dropdownColor: Colors.grey,
+                  dropdownColor: Colors.grey[200],
                   icon: Icon(Icons.arrow_drop_down),
                   iconSize: 36,
                   isExpanded: true,
@@ -126,7 +126,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                 ),
                 DropdownButtonFormField(
                   hint: Text("Select a class status"),
-                  dropdownColor: Colors.grey,
+                  dropdownColor: Colors.grey[200],
                   icon: Icon(Icons.arrow_drop_down),
                   iconSize: 36,
                   isExpanded:true,
