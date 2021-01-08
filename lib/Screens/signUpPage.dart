@@ -4,7 +4,7 @@ import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_my_tutor/Models/UserArg.dart';
-import 'homePage.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class SignUpPage extends StatefulWidget {
   static String signUpPageID = "signUpPage";
@@ -22,6 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String userName;
   String status;
   List statusOptions = ['O-Level', 'A-Level (AS)', 'A-Level (A2)', 'Other'];
+  bool hidePassword = true;
 
 
 
@@ -116,13 +117,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Required";
-                      } else {
-                        return null;
-                      }
-                    },
+                    validator: MultiValidator(
+                      [
+                        RequiredValidator(errorText: 'Required'),
+                        EmailValidator(errorText: 'Not a valid email')
+                      ]
+                    ),
                     onChanged: (value) {
                       email = value;
                     },
@@ -155,6 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 TextFormField(
+                  obscureText: hidePassword,
                     validator: (value) {
                       if (value.isEmpty) {
                         return "Required";
@@ -165,43 +166,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       password = value;
                     },
+
                     decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFE0E0E0),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(21.0),
-                        ),
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          setState(() {
+                            hidePassword = hidePassword == true ? false : true;
+                          });
+                        },
+                        child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
                       ),
-                    )),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
-                  child: Text(
-                    'Confirm Password',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'Bariol',
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Required";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFE0E0E0),
                       border: OutlineInputBorder(
