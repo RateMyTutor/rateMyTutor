@@ -1,248 +1,221 @@
-import 'package:rate_my_tutor/AuthService.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rate_my_tutor/Screens/addReviewPage.dart';
-
-import 'package:rate_my_tutor/Screens/tutorPage.dart';
-
-import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
-import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
-
-import 'signUpPage.dart';
-import 'homePage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
+import 'homePage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_my_tutor/Models/UserArg.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:provider/provider.dart';
-import 'package:rate_my_tutor/auth_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginPage extends StatefulWidget {
-
   static String loginPageID = "LoginPage";
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-  final db = FirebaseFirestore.instance;
+  // This widget is the root of your application.
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final db = Firestore.instance;
   final _auth = FirebaseAuth.instance;
-  bool showSpinner = false;
-  bool hidePassword = true;
   String email;
   String password;
+  String userName;
+  String status;
+  List statusOptions = ['O-Level', 'A-Level (AS)', 'A-Level (A2)', 'Other'];
+  bool hidePassword = true;
+  bool showSpinner = false;
+  bool checkedValue = false;
+
 
 
   @override
   Widget build(BuildContext context) {
-    var authBloc = Provider.of<AuthBloc>(context);
-    return Scaffold(
-
-      backgroundColor: Colors.white,
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 60.0),
-                  child: Center(
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.brown.shade800,
-                      child: Text(
-                          'ICON'
-                      ),
-                    ),
-                  ),
-                ),
-                Text(
-                  'Email Address',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextField(
-                  onChanged: (value){
-                    email = value;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email Address',
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                TextField(
-                  onChanged: (value){
-                    password = value;
-                  },
-                  obscureText: hidePassword,
-                  decoration: InputDecoration(
-                      suffix: InkWell(
-                        onTap: (){
-                          setState(() {
-                            hidePassword = hidePassword == true ? false : true;
-                          });
-                        },
-                        child: Icon(Icons.visibility),
-                      ),
-                      border: OutlineInputBorder(),
-                      labelText: 'Password'
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 16.0),
+              child: Form(
+                key: formkey,
+                child: Column(
                   children: [
-                    RaisedButton(
-                      onPressed: () async {
-                        //TODO: Go to home
-                        setState(() {
-                          //make the spinner spin
-                          showSpinner = true;
-                        });
-                        try{
-                          final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                          if(user != null) {
-                            Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
-                          }// if
-                        }catch(e){
-                          print(e.toString());
-                        }
-                        setState(() {
-                          showSpinner = false;
-                        });
-
-                      },// try
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                          iconSize: 35,
+                          color: Color(0xFF2F80ED),
+                          icon: Icon(
+                            Icons.arrow_back,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              fontSize: 36,
+                              fontFamily: 'Bariol',
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black),
+                        ),
                       ),
-                      child: Text("Login"),
                     ),
                     SizedBox(
-                      width: 10.0,
+                      height: 24.0,
                     ),
-                    //Sign up Button
-                    RaisedButton(
-                      onPressed: () async {
-                        //TODO: Go to SignUp Page
-                        Navigator.pushNamed(context,SignUpPage.signUpPageID);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => AddReviewPage()));
-                      },
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                      child: Text(
+                        'Email',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Bariol',
+                          color: Colors.black,
+                        ),
                       ),
-                      child: Text("Sign Up"),
+                    ),
+                    TextFormField(
+
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Required";
+                          } else {
+                            return null;
+                          }
+                        },
+                        onChanged: (value) {
+                          email = value;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xFFE0E0E0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              const Radius.circular(21.0),
+                            ),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                      child: Text(
+                        'Password',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Bariol',
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    TextFormField(
+                        obscureText: hidePassword,
+                        validator: MultiValidator(
+                            [
+                              RequiredValidator(errorText: 'Required'),
+                              EmailValidator(errorText: 'Not a valid email')
+                            ]
+                        ),
+                        onChanged: (value) {
+                          password = value;
+                        },
+                        decoration: InputDecoration(
+                          suffixIcon: InkWell(
+                            onTap: (){
+                              setState(() {
+                                hidePassword = hidePassword == true ? false : true;
+                              });
+                            },
+                            child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+                          ),
+                          filled: true,
+                          fillColor: Color(0xFFE0E0E0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              const Radius.circular(21.0),
+                            ),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 29.0,
+                    ),
+                    CheckboxListTile(
+                      title: Text(
+                          "Keep me signed in",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Bariol',
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black),
+                      ),
+                      value: checkedValue,
+                      onChanged: (newValue) {
+                        setState(() {
+                          checkedValue = newValue;
+                        });
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                    ),
+                    SizedBox(
+                      height: 40.0,
+                    ),
+                    ButtonTheme(
+                      minWidth: 245,
+                      height: 53,
+                      child: FlatButton(
+                        color: Color(0xFF2F80ED),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(26.5)),
+                        onPressed: () async {
+                          //TODO: Go to home
+                          setState(() {
+                            //make the spinner spin
+                            showSpinner = true;
+                          });
+                          try{
+                            final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                            if(user != null) {
+                              Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
+                            }// if
+                          }catch(e){
+                            print(e.toString());
+                          }
+                          setState(() {
+                            showSpinner = false;
+                          });
+
+                        },// try
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Color(0xFFF2F2F2),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SignInButton(
-                        Buttons.Facebook,
-                        onPressed: () async {
-                          User user =  await authBloc.loginFaceBook();
-                          print("User print");
-                          print(user);
-                          if(user != null) {
-                            bool firstLogin = await isFirstLogin(user);
-                            if(firstLogin){
-                              print("Confirmed First time : So go to firstTime page");
-                              Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                            }else{
-                              Navigator.pushNamed(context, HomePage.homePageID);
-                            }
-                            print("hello");
-                            print(user.displayName);
-                            print(user.uid);
-                          }; // if
-
-                        },
-                      ),
-                      SignInButton(
-                        Buttons.GoogleDark,
-                        onPressed: () async{
-                          User user = await authBloc.loginGoogle();
-                          print("Logged in with google");
-                          if(user != null){
-                            bool firstLogin = await isFirstLogin(user);
-                            if(firstLogin){
-                              print("Confirmed First time : So go to firstTime page");
-                              Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                            }else{
-                              Navigator.pushNamed(context, HomePage.homePageID);
-                            }
-
-                            print(user.email);
-                            print(user.uid);
-                            Navigator.pushNamed(context, HomePage.homePageID);
-                          }else{
-                            print(user);
-                            print("Failed");
-                          }
-
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(
-                  height: 20.0,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
-  }// build
-
-// method checks if the user is logging in for the first time or not
-  Future<bool> isFirstLogin(User user) async{
-
-    DocumentSnapshot doc = await  db.collection("Users").doc(user.uid).get();
-    if(doc.exists){
-      return false;
-    }else{
-      print("Document doesn't exist, so user is first time logging in");
-      return true;
-    }
-  }// isFirstLogin
-
-
-
-}// class
+        ));
+  }
+}
