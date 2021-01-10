@@ -1,6 +1,7 @@
 
 import 'package:provider/provider.dart';
 import 'package:rate_my_tutor/Screens/advancedSearch.dart';
+import 'package:rate_my_tutor/Screens/initialScreen.dart';
 
 import 'Screens/homePage.dart';
 import 'Screens/loginPage.dart';
@@ -26,8 +27,9 @@ class Setup extends StatelessWidget {
     return Provider(
       create: (context) => AuthBloc(),
       child: MaterialApp(
-        initialRoute: LoginPage.loginPageID,
+        initialRoute: InitialScreen.initialScreenID,
         routes: {
+          InitialScreen.initialScreenID : (context) => InitialScreen(),
           LoginPage.loginPageID : (context) => LoginPage(),
           SignUpPage.signUpPageID : (context) => SignUpPage(),
           HomePage.homePageID : (context) => HomePage(),

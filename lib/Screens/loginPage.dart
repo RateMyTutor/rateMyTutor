@@ -191,6 +191,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SignInButton(
                         Buttons.GoogleDark,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
                         onPressed: () async{
                           User user = await authBloc.loginGoogle();
                           print("Logged in with google");
@@ -240,6 +242,58 @@ class _LoginPageState extends State<LoginPage> {
     }
   }// isFirstLogin
 
-
-
 }// class
+
+
+//TODO: Facebook sign in
+//   SignInButton(
+//   Buttons.Facebook,
+//   onPressed: () async {
+//   User user =  await authBloc.loginFaceBook();
+//   print("User print");
+//   print(user);
+//   if(user != null) {
+//   bool firstLogin = await isFirstLogin(user);
+//   if(firstLogin){
+//   print("Confirmed First time : So go to firstTime page");
+//   Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+//   }else{
+//   Navigator.pushNamed(context, HomePage.homePageID);
+//   }
+//   print("hello");
+//   print(user.displayName);
+//   print(user.uid);
+//   }; // if
+//
+// },
+// ),
+
+
+//TODO: Google sign-in
+// SignInButton(
+// Buttons.GoogleDark,
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(20.0)),
+// onPressed: () async{
+// User user = await authBloc.loginGoogle();
+// print("Logged in with google");
+// if(user != null){
+// bool firstLogin = await isFirstLogin(user);
+// if(firstLogin){
+// print("Confirmed First time : So go to firstTime page");
+// Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+// }else{
+// Navigator.pushNamed(context, HomePage.homePageID);
+// }
+//
+// print(user.email);
+// print(user.uid);
+// Navigator.pushNamed(context, HomePage.homePageID);
+// }else{
+// print(user);
+// print("Failed");
+// }
+//
+// },
+// ),
+
