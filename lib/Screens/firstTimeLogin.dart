@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rate_my_tutor/Screens/homePage.dart';
 import 'package:rate_my_tutor/Screens/signUpPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
 
 class FirstTimeLogin extends StatefulWidget {
   static String firstTimeLoginPage = "firstTimeLoginPage";
@@ -23,7 +24,7 @@ class _FirstTimeLoginState extends State<FirstTimeLogin> {
   void validate() async {
     if(formkey.currentState.validate()){
       await addUserToDb(uAuth.currentUser);
-      Navigator.pushNamed(context, HomePage.homePageID);
+      Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
     }else{
       print("Failed validation");
     }
@@ -108,6 +109,7 @@ class _FirstTimeLoginState extends State<FirstTimeLogin> {
                     // addUserToDb(uAuth.currentUser);
                     // //TODO: go to home page
                     // Navigator.pushNamed(context,HomePage.homePageID);
+                    // this function checks if its validated, then adds user to db and goes to home screen
                     await validate();
                   },
                   color: Colors.amber,

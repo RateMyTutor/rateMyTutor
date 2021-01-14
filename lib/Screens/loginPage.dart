@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
@@ -129,12 +128,14 @@ class _LoginPageState extends State<LoginPage> {
                           }// if
                         }catch(e){
                           print(e.toString());
-                        }
+                        }//catch
+
                         setState(() {
                           showSpinner = false;
                         });
 
-                      },// try
+                      },// onPressed
+
                       color: Colors.amber,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -201,10 +202,9 @@ class _LoginPageState extends State<LoginPage> {
                             if(firstLogin){
                               print("Confirmed First time : So go to firstTime page");
                               Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
-                            }else{
+                            }else {
                               Navigator.pushNamed(context, HomePage.homePageID);
                             }
-
                             print(user.email);
                             print(user.uid);
                             Navigator.pushNamed(context, HomePage.homePageID);

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
+import 'package:rate_my_tutor/Utilities/bottomNavBar.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -234,12 +236,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: () async {
                       if (formkey.currentState.validate()) {
                         try {
-                          final newUser =
-                              await _auth.createUserWithEmailAndPassword(
-                                  email: email, password: password);
+                          final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
                           if (newUser != null) {
-                            final user =
-                                UserArg(newUser.user.uid, userName, status);
+                            final user = UserArg(newUser.user.uid, userName, status);
                             print(newUser.user.uid);
 
                             //Add User to database
@@ -252,15 +251,17 @@ class _SignUpPageState extends State<SignUpPage> {
                               "userID": user.getUserID(),
                             }).then((_) {
                               //if successful, go to home page
-                              Navigator.pushNamed(context, HomePage.homePageID);
+                             Navigator.pushNamed(context, BottomNavBar.bottomNavBarID);
                             });
                           }
                         } catch (e) {
                           print(e.toString());
-                        }
-                      } else {
+                        }// catch
+                      }// if
+                      // if validation failed, so wrong input entered
+                      else {
                         print("Failed validation");
-                      }
+                      }// else
                       //sign up the user
                     },
                     child: Text(
