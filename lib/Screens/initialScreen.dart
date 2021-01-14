@@ -40,7 +40,7 @@ class _InitialScreenState extends State<InitialScreen> {
             SizedBox(height: 100.0,),
             SignInButton(
               Buttons.Facebook,
-              text: "Continue with Facebook",
+              text: "Login with Facebook",
               onPressed: () async {
               }
             ),
@@ -49,7 +49,7 @@ class _InitialScreenState extends State<InitialScreen> {
             ),
             SignInButton(
               Buttons.GoogleDark,
-              text: "Continue with Google",
+              text: "Login with Google",
               onPressed: () async{
 
               },
