@@ -37,15 +37,12 @@ class Setup extends StatelessWidget {
                   child: MaterialApp(
                     initialRoute: InitialScreen.initialScreenID,
                     routes: {
-                      InitialScreen.initialScreenID: (context) =>
-                          InitialScreen(),
+                      InitialScreen.initialScreenID: (context) => InitialScreen(),
                       LoginPage.loginPageID: (context) => LoginPage(),
                       SignUpPage.signUpPageID: (context) => SignUpPage(),
                       HomePage.homePageID: (context) => HomePage(),
-                      FirstTimeLogin.firstTimeLoginPage: (context) =>
-                          FirstTimeLogin(),
-                      AdvancedSearch.advancedSearchPageID: (context) =>
-                          AdvancedSearch(),
+                      FirstTimeLogin.firstTimeLoginPage: (context) => FirstTimeLogin(),
+                      AdvancedSearch.advancedSearchPageID: (context) => AdvancedSearch(),
                       BottomNavBar.bottomNavBarID: (context) => BottomNavBar(),
                     },
                   ),

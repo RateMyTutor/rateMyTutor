@@ -54,8 +54,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
 
-        selectedItemColor: _selectedIndex == 0 ? Colors.blue : Colors.grey,
-        unselectedItemColor: _selectedIndex == 1 ? Colors.blue:Colors.grey,
+        selectedItemColor: _selectedIndex == 0 ? Colors.blueAccent : Colors.grey,
+        unselectedItemColor: _selectedIndex == 1 ? Colors.blueAccent:Colors.grey,
 
       ),
     );

@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String status;
   List statusOptions = ['O-Level', 'A-Level (AS)', 'A-Level (A2)', 'Other'];
   bool hidePassword = true;
-  
+
 
   @override
   Widget build(BuildContext context) {
