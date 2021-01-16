@@ -46,8 +46,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   Container(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                        iconSize: 35,
-                        color: Color(0xFF2F80ED),
+                        iconSize: 26.0.sp,
+                        color: Color(0xff583CDF),
                         icon: Icon(
                           Icons.arrow_back,
                         ),
@@ -69,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 4.0.h,
+                    height: 18.0.sp,
                   ),
                   Container(
                     alignment: Alignment.topLeft,
@@ -96,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xFFE0E0E0),
+                        fillColor: Color(0xFFe7eaf0),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0,
@@ -108,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       )),
                   SizedBox(
-                    height: height*0.05,
+                    height: 15.0.sp,
                   ),
                   Container(
                     alignment: Alignment.topLeft,
@@ -134,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color(0xFFE0E0E0),
+                        fillColor: Color(0xFFe7eaf0),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0,
@@ -146,7 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       )),
                   SizedBox(
-                    height: height*0.05,
+                    height: 15.0.sp,
                   ),
                   Container(
                     alignment: Alignment.topLeft,
@@ -183,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
                         ),
                         filled: true,
-                        fillColor: Color(0xFFE0E0E0),
+                        fillColor: Color(0xFFe7eaf0),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             width: 0,
@@ -195,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       )),
                   SizedBox(
-                    height: height*0.05,
+                    height: 15.0.sp,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -228,13 +228,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   SizedBox(
-                    height: height*0.05,
+                    height: 26.0.sp,
                   ),
                   ButtonTheme(
-                    minWidth: 245,
-                    height: 53,
+                    minWidth: 184.0.sp,
+                    height: 40.0.sp,
                     child: FlatButton(
-                      color: Color(0xFF2F80ED),
+                      color: Color(0xff583CDF),
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(26.5)),
                       onPressed: () async {
@@ -273,7 +273,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         'Sign Up',
                         style: TextStyle(
                           color: Color(0xFFF2F2F2),
-                          fontSize: 24,
+                          fontSize: 18.0.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
