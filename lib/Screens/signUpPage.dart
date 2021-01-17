@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rate_my_tutor/Screens/firstTimeLogin.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -70,42 +71,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: 4.0.h,
                       ),
-                      Container(
-                        alignment: Alignment.topLeft,
-                        margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
-                        child: Text(
-                          'Username',
-                          style: TextStyle(
-                            fontSize: 14.0.sp,
-                            fontFamily: 'Bariol',
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Required";
-                            } else {
-                              return null;
-                            }
-                          },
-                          onChanged: (value) {
-                            userName = value;
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFE0E0E0),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                const Radius.circular(21.0),
-                              ),
-                            ),
-                          )),
                       SizedBox(
                         height: height*0.05,
                       ),
@@ -196,36 +161,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: height*0.05,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButtonFormField(
-                          validator: (value) {
-                            if (value == null) {
-                              return "Required";
-                            } else {
-                              return null;
-                            }
-                          },
-                          hint: Text('Select an option:'),
-                          dropdownColor: Colors.grey[200],
-                          icon: Icon(Icons.arrow_drop_down),
-                          iconSize: 36,
-                          isExpanded: true,
-                          style: TextStyle(color: Colors.black, fontSize: 22),
-                          value: status,
-                          onChanged: (newValue) {
-                            setState(() {
-                              status = newValue;
-                            });
-                          },
-                          items: statusOptions.map((valueItem) {
-                            return DropdownMenuItem(
-                              value: valueItem,
-                              child: Text(valueItem),
-                            );
-                          }).toList(),
-                        ),
-                      ),
                       SizedBox(
                         height: height*0.05,
                       ),
@@ -244,21 +179,23 @@ class _SignUpPageState extends State<SignUpPage> {
                                     email: email, password: password);
                                 if (newUser != null) {
                                   final user =
-                                  UserArg(newUser.user.uid, userName, status);
+                                  UserArg(userID : newUser.user.uid, username: userName);
                                   print(newUser.user.uid);
 
-                                  //Add User to database
-                                  await db
-                                      .collection("Users")
-                                      .doc(user.getUserID())
-                                      .set({
-                                    "username": userName,
-                                    "status": status,
-                                    "userID": user.getUserID(),
-                                  }).then((_) {
-                                    //if successful, go to home page
-                                    Navigator.pushNamed(context, HomePage.homePageID);
-                                  });
+                                  Navigator.pushNamed(context, FirstTimeLogin.firstTimeLoginPage);
+
+                                  // //Add User to database
+                                  // await db
+                                  //     .collection("Users")
+                                  //     .doc(user.getUserID())
+                                  //     .set({
+                                  //   "username": userName,
+                                  //   "userStatus": status,
+                                  //   "userID": user.getUserID(),
+                                  // }).then((_) {
+                                  //   //if successful, go to home page
+                                  //   Navigator.pushNamed(context, HomePage.homePageID);
+                                  // });
                                 }
                               } catch (e) {
                                 print(e.toString());

@@ -6,7 +6,7 @@ import 'package:rate_my_tutor/Backend/Database.dart';
 import 'package:rate_my_tutor/Models/Review.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/addReviewPage.dart';
-
+import 'package:sizer/sizer.dart';
 
 class TutorPage extends StatefulWidget {
 
@@ -23,6 +23,8 @@ class _TutorPageState extends State<TutorPage> {
   final firestoreInstance = FirebaseFirestore.instance;
   final _db = FirebaseFirestore.instance;
   ScrollController _scrollController = new ScrollController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class _TutorPageState extends State<TutorPage> {
                 ),
                 Container(
                   child: FutureBuilder(
-                      future: Database().getReviewsFromDB(widget.tutorObject.tutorID),
+                      future: Database().getTutorReviewsFromDB(widget.tutorObject.tutorID),
                       builder: (context, snapshot) {
                         if (snapshot.data == null) {
                           return Center(
@@ -79,26 +81,51 @@ class _TutorPageState extends State<TutorPage> {
                               itemBuilder: (context, index) {
                                 return Card(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Saadman13',
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Container(
-                                            color: Colors.blue[50],
-                                            child: Text(
-                                                snapshot
-                                                    .data[index].reviewerStatus,
-                                                style: TextStyle(fontSize: 18)),
-                                          ),
-                                        ],
+                                      FittedBox(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              snapshot.data[index].reviewerUsername,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              width: 1.0.w,
+                                            ),
+                                            Container(
+                                              color: Colors.blue[50],
+                                              child: Text(
+                                                snapshot.data[index].reviewerStatus,
+                                                 // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  style: TextStyle(fontSize: 18)),
+                                            ),
+                                            SizedBox(
+                                              width: 1.0.w,
+                                            ),
+                                            Container(
+                                              color: Colors.purple[50],
+                                              child: Text(
+                                                  snapshot.data[index].reviewSubject,
+                                                  // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  style: TextStyle(fontSize: 18)),
+                                            ),
+                                            SizedBox(
+                                              width: 1.0.w,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.topRight,
+                                              child: Text(
+                                                "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+
+                                            )
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 4,
@@ -187,5 +214,65 @@ class _TutorPageState extends State<TutorPage> {
     return (text.length <= cutoff)
         ? text
         : '${text.substring(0, cutoff)}...';
+  }
+
+
+  String formatDate(int day, int month, int year){
+   //TODO:  do a switch statement for months later
+    String monthName;
+    switch(month){
+
+      case 1: {
+        monthName = "Jan";
+      }
+      break;
+      case 2: {
+        monthName = "Feb";
+      }
+      break;
+      case 3: {
+        monthName = "Mar";
+      }
+      break;
+      case 4: {
+        monthName = "Apr";
+      }
+      break;
+      case 5: {
+        monthName = "May";
+      }
+      break;
+      case 6: {
+        monthName = "Jun";
+      }
+      break;
+      case 7: {
+        monthName = "Jul";
+      }
+      break;
+      case 8: {
+        monthName = "Aug";
+      }
+      break;
+      case 9: {
+        monthName = "Sept";
+      }
+      break;
+      case 10: {
+        monthName = "Oct";
+      }
+      break;
+      case 11: {
+        monthName = "Nov";
+      }
+      break;
+      case 12: {
+        monthName = "Dec";
+      }
+      break;
+    }
+
+    return "${monthName} ${day} ${year}";
+
   }
 }
