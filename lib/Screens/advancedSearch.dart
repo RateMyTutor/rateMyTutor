@@ -10,10 +10,10 @@ class AdvancedSearch extends StatefulWidget {
 }
 
 class _AdvancedSearchState extends State<AdvancedSearch> {
-  String location;
-  String subject;
+  String location = 'Banani';
+  String subject = 'Physics';
   String selectedCurriculum;
-  String classStatus;
+  String classStatus = 'Olevels';
   int selectedRadio;
 
   List curriculum = [
@@ -52,138 +52,199 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(
-            25.0
-        ),
-        child: Center(
-          child: Form(
-            autovalidateMode: AutovalidateMode.always,
-            key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Enter Search Criteria Below",
+        padding: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 16.0),
+        child: Form(
+          autovalidateMode: AutovalidateMode.always,
+          key: formkey,
+          child: Column(
+            children: [
+              Text(
+                "Search",
+                style: TextStyle(
+                    fontSize: 36.0,
+                    fontFamily: 'Bariol',
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+              SizedBox(
+                height: 24.0,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Subject:',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
+                    fontSize: 18,
+                    fontFamily: 'Bariol',
+                    color: Colors.black,
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
+              ),
+              DropdownButtonFormField(
+
+                hint: Text("Select a subject"),
+                dropdownColor: Colors.grey[200],
+                icon: Icon(Icons.arrow_drop_down),
+                iconSize: 36,
+                isExpanded: true,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22
                 ),
-
-                DropdownButtonFormField(
-
-                  hint: Text("Select a subject"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
+                value: subject,
+                onChanged: (newValue) {
+                  setState((){
+                    subject  = newValue;
+                  });
+                },
+                items: subjectOptions.map((valueItem){
+                  return DropdownMenuItem(
+                    value: valueItem,
+                    child: Text(valueItem),
+                  );
+                }).toList(),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Location:',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
+                    fontSize: 18,
+                    fontFamily: 'Bariol',
+                    color: Colors.black,
                   ),
-                  value: subject,
-                  onChanged: (newValue) {
-                    setState((){
-                      subject  = newValue;
-                    });
-                  },
-                  items: subjectOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                DropdownButtonFormField(
+              ),
+              DropdownButtonFormField(
 
-                  hint: Text("Select a location"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
+                hint: Text("Select a location"),
+                dropdownColor: Colors.grey[200],
+                icon: Icon(Icons.arrow_drop_down),
+                iconSize: 36,
+                isExpanded: true,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22
+                ),
+                value: location,
+                onChanged: (newValue) {
+                  setState((){
+                    location = newValue;
+                  });
+                },
+                items: locationOptions.map((valueItem){
+                  return DropdownMenuItem(
+                    value: valueItem,
+                    child: Text(valueItem),
+                  );
+                }).toList(),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Class status:',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
+                    fontSize: 18,
+                    fontFamily: 'Bariol',
+                    color: Colors.black,
                   ),
-                  value: location,
-                  onChanged: (newValue) {
-                    setState((){
-                      location = newValue;
-                    });
-                  },
-                  items: locationOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
                 ),
-                DropdownButtonFormField(
-                  hint: Text("Select a class status"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded:true,
+              ),
+              DropdownButtonFormField(
+                hint: Text("Select a class status"),
+                dropdownColor: Colors.grey[200],
+                icon: Icon(Icons.arrow_drop_down),
+                iconSize: 36,
+                isExpanded:true,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22
+                ),
+                value: classStatus,
+                onChanged: (newValue) {
+                  setState((){
+                    classStatus  = newValue;
+                  });
+                },
+                items: classStatusOptions.map((valueItem){
+                  return DropdownMenuItem(
+                    value: valueItem,
+                    child: Text(valueItem),
+                  );
+                }).toList(),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Curriculum:',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
+                    fontSize: 18,
+                    fontFamily: 'Bariol',
+                    color: Colors.black,
                   ),
-                  value: classStatus,
-                  onChanged: (newValue) {
-                    setState((){
-                      classStatus  = newValue;
-                    });
-                  },
-                  items: classStatusOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
                 ),
+              ),
+              Row(
+                children: [
 
-                Row(
-                  children: [
-                    Text(curriculum[0]),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: [
-                        Radio(
-                          value: 0,
-                          groupValue: selectedRadio,
-                          activeColor: Colors.blue,
-                          onChanged: (val){
-                            setSelectedRadio(val);
-                            selectedCurriculum = curriculum[selectedRadio];
-                            print("Selected Curriculum: " + selectedCurriculum);
-                          },
-                        ),
-                        Text(curriculum[1]),
-                        Radio(
-                          value: 1,
-                          groupValue: selectedRadio,
-                          activeColor: Colors.blue,
-                          onChanged: (val){
-                            setSelectedRadio(val);
-                            selectedCurriculum = curriculum[selectedRadio];
-                            print("Selected Curriculum: " + selectedCurriculum);
-                          },
-                        ),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 0,
+                        groupValue: selectedRadio,
+                        activeColor: Colors.blue,
+                        onChanged: (val){
+                          setSelectedRadio(val);
+                          selectedCurriculum = curriculum[selectedRadio];
+                          print("Selected Curriculum: " + selectedCurriculum);
+                        },
+                      ),
+                      Text(curriculum[0],style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Bariol',
+                        color: Colors.black,
+                      ),),
+                      Radio(
+                        value: 1,
+                        groupValue: selectedRadio,
+                        activeColor: Colors.blue,
+                        onChanged: (val){
+                          setSelectedRadio(val);
+                          selectedCurriculum = curriculum[selectedRadio];
+                          print("Selected Curriculum: " + selectedCurriculum);
+                        },
+                      ),
+                      Text(curriculum[1],style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Bariol',
+                        color: Colors.black,
+                      ),),
 
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                RaisedButton(
+
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 34.0,
+              ),
+              ButtonTheme(
+                minWidth: 245,
+                height: 53,
+                child: FlatButton(
+                  color: Color(0xff583CDF),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(26.5)),
                   onPressed: () async {
                     //create new Query object
                     Query query = Query(queryLocation: location, queryClassStatus: classStatus,
@@ -197,14 +258,18 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                       ),
                     );
                   },
-                  color: Colors.amber,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+
+                  child: Text(
+                    'Search',
+                    style: TextStyle(
+                      color: Color(0xFFF2F2F2),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                  child: Text("Search"),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

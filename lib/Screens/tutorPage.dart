@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:rate_my_tutor/Backend/Database.dart';
 import 'package:rate_my_tutor/Models/Review.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/addReviewPage.dart';
@@ -60,7 +61,7 @@ class _TutorPageState extends State<TutorPage> {
                 ),
                 Container(
                   child: FutureBuilder(
-                      future: getReviewsFromDB(),
+                      future: Database().getReviewsFromDB(widget.tutorObject.tutorID),
                       builder: (context, snapshot) {
                         if (snapshot.data == null) {
                           return Center(
@@ -158,28 +159,29 @@ class _TutorPageState extends State<TutorPage> {
     );
   }
 
-  Future<List<Review>> getReviewsFromDB() async {
-    List<Review> reviewList = [];
-    print(widget.tutorObject.tutorID);
-    final reviews = await _db
-        .collection("Reviews")
-        .where("reviewTutorID", isEqualTo: widget.tutorObject.tutorID)
-        .get();
-    for (var review in reviews.docs) {
-      final newReview = Review(
-          reviewerID: review["reviewerID"],
-          reviewerStatus: review["reviewerStatus"],
-          reviewTutorID: review["reviewTutorID"],
-          reviewRating: review["reviewRating"].toInt(),
-          reviewFilter: review["reviewFilter"],
-          reviewText: review["reviewText"]);
-      print(newReview);
-      reviewList.add(newReview);
+  // Future<List<Review>> getReviewsFromDB() async {
+  //   List<Review> reviewList = [];
+  //   print(widget.tutorObject.tutorID);
+  //   final reviews = await _db
+  //       .collection("Reviews")
+  //       .where("reviewTutorID", isEqualTo: widget.tutorObject.tutorID)
+  //       .get();
+  //   for (var review in reviews.docs) {
+  //     final newReview = Review(
+  //         reviewerID: review["reviewerID"],
+  //         reviewerStatus: review["reviewerStatus"],
+  //         reviewTutorID: review["reviewTutorID"],
+  //         reviewRating: review["reviewRating"].toInt(),
+  //         reviewFilter: review["reviewFilter"],
+  //         reviewText: review["reviewText"]);
+  //     print(newReview);
+  //     reviewList.add(newReview);
+  //
+  //   } // for loop
+  //   print(reviewList);
+  //   return reviewList;
+  // }
 
-    } // for loop
-    print(reviewList);
-    return reviewList;
-  }
   String truncateText(String text) {
     int cutoff = 170;
     return (text.length <= cutoff)

@@ -42,9 +42,13 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      body: SingleChildScrollView(
+
+    var authBloc = Provider.of<AuthBloc>(context);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 16.0),
           child: Form(
@@ -165,6 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 29.0,
                 ),
+
                 CheckboxListTile(
                   title: Text(
                     "Keep Me Signed In",

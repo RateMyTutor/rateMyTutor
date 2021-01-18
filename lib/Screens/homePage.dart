@@ -4,11 +4,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rate_my_tutor/Backend/Database.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/advancedSearch.dart';
 import 'package:rate_my_tutor/Screens/loginPage.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/tutorSearch.dart';
+import 'package:rate_my_tutor/auth_service.dart';
+import 'package:sizer/sizer.dart';
 
 
 
@@ -26,8 +29,7 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   final FirebaseAuth uAuth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
-
-
+  ScrollController _scrollController = new ScrollController();
   SearchBar searchBar;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -36,6 +38,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xFF3DDCFA),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
@@ -44,30 +48,184 @@ class _HomePageState extends State<HomePage> {
               },
           ),
         ],
-        title: Text('Search for Tutor'),
+        title: Text(
+            'TutorQuest',
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Bariol',
+            color: Colors.black,
+          ),
+        ),
     leading: IconButton(
     icon: Icon(Icons.logout),
     onPressed: () async {
-
-      // for (UserInfo userInfo in uAuth.currentUser.providerData) {
-      // if (userInfo.providerId.compareTo("facebook.com") == 0) {
-      //   print(userInfo.providerId);
-      //   print("Lets sign out " + uAuth.currentUser.displayName);
-      //   uAuth.signOut();
-      //
-      // }
-      //
-      // }
-
       uAuth.signOut();
       Navigator.pushNamed(context,LoginPage.loginPageID);
-
       print("USer ID : " + uAuth.currentUser.uid);
       print("Lets see if we can still see it ");
       print(uAuth.currentUser.displayName);
-      },
+      }, //onPressed
     ),
       ),
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Padding(
+          padding:  EdgeInsets.only(top: 4.0.h),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                    "Welcome,",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Bariol',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.0.sp,
+                    )
+                ),
+              ),
+              Text(
+                  "Smriti",
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontFamily: 'Bariol',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0.sp,
+                  )
+              ),
+              SizedBox(
+                height: 2.0.h,
+              ),
+              ButtonTheme(
+                minWidth: 10.0.w,
+                height: 6.0.h,
+                child: FlatButton(
+                  color: Color(0xFF4DAADD),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(26.5)),
+                  onPressed: () async {
+                  },
+                  child: Text(
+                    'Edit Profile',
+                    style: TextStyle(
+                      color: Color(0xFFF2F2F2),
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 6.0.h,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding:  EdgeInsets.only(left: 2.0.w),
+                  child: Text(
+                      "Reviews Made By You: ",
+                    style: TextStyle(
+                      fontSize: 16.0.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Bariol',
+                    ),
+                  ),
+                ),
+              ),
+              Divider(
+                color: Colors.grey[500],
+                thickness: 0.5.h,
+              ),
+              SizedBox(
+                height: 0.5.h,
+              ),
+              Container(
+                child: FutureBuilder(
+                    future: Database().getUserReviewsFromDB('anonymous'),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return Center(
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                        "Mostofa Azam",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          color: Colors.blue[50],
+                                          child: Text(
+                                            "Physics",
+                                              style: TextStyle(fontSize: 18)),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    FittedBox(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Rating: '+ snapshot.data[index].reviewRating.toString()+'/5',
+                                            style: TextStyle(
+                                                fontSize: 18
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 6,
+                                          ),
+                                          Container(
+                                            color: Colors.pink[50],
+                                            child: Text(
+                                                snapshot
+                                                    .data[index].reviewFilter,
+                                                style: TextStyle(fontSize: 16)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      truncateText(snapshot.data[index].reviewText),
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            });
+                      }
+                    }),
+              )
+            ],
+          ),
+        ),
+      ),
+
 
     );
   }
@@ -89,6 +247,13 @@ class _HomePageState extends State<HomePage> {
       print(value.data());
     });
   }
+}
+
+String truncateText(String text) {
+  int cutoff = 170;
+  return (text.length <= cutoff)
+      ? text
+      : '${text.substring(0, cutoff)}...';
 }
 
 

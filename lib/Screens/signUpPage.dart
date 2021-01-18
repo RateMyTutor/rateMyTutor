@@ -26,265 +26,264 @@ class _SignUpPageState extends State<SignUpPage> {
   bool hidePassword = true;
 
 
-
   @override
   Widget build(BuildContext context) {
     double width=MediaQuery.of(context).size.width;
     double height=MediaQuery.of(context).size.height;
     return MaterialApp(
         home: Scaffold(
-      body: Container(
-        height: height,
-        width: width,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 16.0),
-            child: Form(
-              key: formkey,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                        iconSize: 26.0.sp,
-                        color: Color(0xff583CDF),
-                        icon: Icon(
-                          Icons.arrow_back,
+          body: Container(
+            height: height,
+            width: width,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 16.0),
+                child: Form(
+                  key: formkey,
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: IconButton(
+                            iconSize: 35,
+                            color: Color(0xff583CDF),
+                            icon: Icon(
+                              Icons.arrow_back,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Center(
+                          child: Text(
+                            'Create an Account',
+                            style: TextStyle(
+                                fontSize: 27.0.sp,
+                                fontFamily: 'Bariol',
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black),
+                          ),
                         ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Center(
-                      child: Text(
-                        'Create an Account',
-                        style: TextStyle(
-                            fontSize: 27.0.sp,
+                      ),
+                      SizedBox(
+                        height: 18.0.sp,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                        child: Text(
+                          'Username',
+                          style: TextStyle(
+                            fontSize: 14.0.sp,
                             fontFamily: 'Bariol',
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 18.0.sp,
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
-                    child: Text(
-                      'Username',
-                      style: TextStyle(
-                        fontSize: 14.0.sp,
-                        fontFamily: 'Bariol',
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Required";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        userName = value;
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xFFe7eaf0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            const Radius.circular(21.0),
+                            color: Colors.black,
                           ),
                         ),
-                      )),
-                  SizedBox(
-                    height: 15.0.sp,
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
-                    child: Text(
-                      'Email',
-                      style: TextStyle(
-                        fontSize: 14.0.sp,
-                        fontFamily: 'Bariol',
-                        color: Colors.black,
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                      validator: MultiValidator(
-                        [
-                          RequiredValidator(errorText: 'Required'),
-                          EmailValidator(errorText: 'Not a valid email')
-                        ]
+                      TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Required";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            userName = value;
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xFFe7eaf0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(21.0),
+                              ),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 15.0.sp,
                       ),
-                      onChanged: (value) {
-                        email = value;
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xFFe7eaf0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            const Radius.circular(21.0),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                        child: Text(
+                          'Email',
+                          style: TextStyle(
+                            fontSize: 14.0.sp,
+                            fontFamily: 'Bariol',
+                            color: Colors.black,
                           ),
                         ),
-                      )),
-                  SizedBox(
-                    height: 15.0.sp,
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
-                    child: Text(
-                      'Password',
-                      style: TextStyle(
-                        fontSize: 14.0.sp,
-                        fontFamily: 'Bariol',
-                        color: Colors.black,
                       ),
-                    ),
-                  ),
-                  TextFormField(
-                    obscureText: hidePassword,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Required";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onChanged: (value) {
-                        password = value;
-                      },
+                      TextFormField(
+                          validator: MultiValidator(
+                              [
+                                RequiredValidator(errorText: 'Required'),
+                                EmailValidator(errorText: 'Not a valid email')
+                              ]
+                          ),
+                          onChanged: (value) {
+                            email = value;
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xFFe7eaf0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(21.0),
+                              ),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 15.0.sp,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                        child: Text(
+                          'Password',
+                          style: TextStyle(
+                            fontSize: 14.0.sp,
+                            fontFamily: 'Bariol',
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                          obscureText: hidePassword,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Required";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            password = value;
+                          },
 
-                      decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          onTap: (){
+                          decoration: InputDecoration(
+                            suffixIcon: InkWell(
+                              onTap: (){
+                                setState(() {
+                                  hidePassword = hidePassword == true ? false : true;
+                                });
+                              },
+                              child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
+                            ),
+                            filled: true,
+                            fillColor: Color(0xFFe7eaf0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(21.0),
+                              ),
+                            ),
+                          )),
+                      SizedBox(
+                        height: 15.0.sp,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButtonFormField(
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required";
+                            } else {
+                              return null;
+                            }
+                          },
+                          hint: Text('Select an option:'),
+                          dropdownColor: Colors.grey[200],
+                          icon: Icon(Icons.arrow_drop_down),
+                          iconSize: 36,
+                          isExpanded: true,
+                          style: TextStyle(color: Colors.black, fontSize: 22),
+                          value: status,
+                          onChanged: (newValue) {
                             setState(() {
-                              hidePassword = hidePassword == true ? false : true;
+                              status = newValue;
                             });
                           },
-                          child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
-                        ),
-                        filled: true,
-                        fillColor: Color(0xFFe7eaf0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            const Radius.circular(21.0),
-                          ),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 15.0.sp,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButtonFormField(
-                      validator: (value) {
-                        if (value == null) {
-                          return "Required";
-                        } else {
-                          return null;
-                        }
-                      },
-                      hint: Text('Select an option:'),
-                      dropdownColor: Colors.grey[200],
-                      icon: Icon(Icons.arrow_drop_down),
-                      iconSize: 36,
-                      isExpanded: true,
-                      style: TextStyle(color: Colors.black, fontSize: 22),
-                      value: status,
-                      onChanged: (newValue) {
-                        setState(() {
-                          status = newValue;
-                        });
-                      },
-                      items: statusOptions.map((valueItem) {
-                        return DropdownMenuItem(
-                          value: valueItem,
-                          child: Text(valueItem),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 26.0.sp,
-                  ),
-                  ButtonTheme(
-                    minWidth: 184.0.sp,
-                    height: 40.0.sp,
-                    child: FlatButton(
-                      color: Color(0xff583CDF),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(26.5)),
-                      onPressed: () async {
-                        if (formkey.currentState.validate()) {
-                          try {
-                            final newUser =
-                                await _auth.createUserWithEmailAndPassword(
-                                    email: email, password: password);
-                            if (newUser != null) {
-                              final user =
-                                  UserArg(newUser.user.uid, userName, status);
-                              print(newUser.user.uid);
-
-                              //Add User to database
-                              await db
-                                  .collection("Users")
-                                  .doc(user.getUserID())
-                                  .set({
-                                "username": userName,
-                                "status": status,
-                                "userID": user.getUserID(),
-                              }).then((_) {
-                                //if successful, go to home page
-                                Navigator.pushNamed(context, HomePage.homePageID);
-                              });
-                            }
-                          } catch (e) {
-                            print(e.toString());
-                          }
-                        } else {
-                          print("Failed validation");
-                        }
-                        //sign up the user
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Color(0xFFF2F2F2),
-                          fontSize: 18.0.sp,
-                          fontWeight: FontWeight.w400,
+                          items: statusOptions.map((valueItem) {
+                            return DropdownMenuItem(
+                              value: valueItem,
+                              child: Text(valueItem),
+                            );
+                          }).toList(),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 15.0.sp,
+                      ),
+                      ButtonTheme(
+                        minWidth: 245,
+                        height: 53,
+                        child: FlatButton(
+                          color: Color(0xff583CDF),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(26.5)),
+                          onPressed: () async {
+                            if (formkey.currentState.validate()) {
+                              try {
+                                final newUser =
+                                await _auth.createUserWithEmailAndPassword(
+                                    email: email, password: password);
+                                if (newUser != null) {
+                                  final user =
+                                  UserArg(newUser.user.uid, userName, status);
+                                  print(newUser.user.uid);
+
+                                  //Add User to database
+                                  await db
+                                      .collection("Users")
+                                      .doc(user.getUserID())
+                                      .set({
+                                    "username": userName,
+                                    "status": status,
+                                    "userID": user.getUserID(),
+                                  }).then((_) {
+                                    //if successful, go to home page
+                                    Navigator.pushNamed(context, HomePage.homePageID);
+                                  });
+                                }
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                            } else {
+                              print("Failed validation");
+                            }
+                            //sign up the user
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: Color(0xFFF2F2F2),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
