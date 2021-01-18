@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rate_my_tutor/Backend/Database.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:flutter/material.dart';
+import 'package:rate_my_tutor/Models/UserArg.dart';
 import 'package:rate_my_tutor/choiceChip.dart';
 
 class AddReviewPage extends StatefulWidget {
   Tutor tutorObject;
+  final uAuth = FirebaseAuth.instance;
   static List list = [];
 
   AddReviewPage({@required this.tutorObject});
@@ -15,13 +19,14 @@ class AddReviewPage extends StatefulWidget {
 
 class _AddReviewPageState extends State<AddReviewPage> {
   final db = FirebaseFirestore.instance;
+  final uAuth = FirebaseAuth.instance;
   int selectedRadio;
   bool checkedValue = false;
   final myController = TextEditingController();
   String curriculum;
   String id;
-  int tutorRating;
-
+  int tutorRating = 3;
+  dynamic currentUser;
   setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
@@ -39,6 +44,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
     // TODO: implement initState
     super.initState();
     AddReviewPage.list.clear();
+    currentUser = Database().getUserFromDB(uAuth.currentUser.uid);
   }
   @override
   Widget build(BuildContext context) {
@@ -152,14 +158,19 @@ class _AddReviewPageState extends State<AddReviewPage> {
                 child: FlatButton(
                     color: Colors.blue[200],
                     onPressed: () async {
-                      await db.collection("test").add({
+                      UserArg currentUser = await Database().getUserFromDB(uAuth.currentUser.uid);
+                      print("Hello Mello");
+                      await db.collection("Reviews").doc().set({
                         "reviewText": myController.text,
                         "reviewerStatus": curriculum,
                         "reviewTutorID": widget.tutorObject.tutorID,
-                        "reviewerID": userID(),
+                        "reviewerID":  uAuth.currentUser.uid,
                         "reviewFilter": AddReviewPage.list[0],
                         "reviewRating" : tutorRating,
-                        'createdOn':FieldValue.serverTimestamp(),
+                        "reviewerUsername": checkedValue == true ? "Anonymous" : currentUser.username,
+                        "reviewTutorName" : widget.tutorObject.tutorName,
+                        "reviewSubject" : widget.tutorObject.tutorSubject, // TODO: but we need to get it from the add review page, as different subject can be selected since teachers can various subjects
+                        "reviewTime": DateTime.now(),
                       }).then((value) => Navigator.pop(context));
                     },
                     child: Text('Post review')),
@@ -171,13 +182,5 @@ class _AddReviewPageState extends State<AddReviewPage> {
     ));
   }
 
-  String userID() {
-    String id;
-    if (checkedValue == true) {
-      id = 'Anonymous';
-    } else {
-      id = 'not anon';
-    }
-    return id;
-  }
+
 }

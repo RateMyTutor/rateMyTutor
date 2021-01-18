@@ -76,30 +76,6 @@ class _FirstTimeLoginState extends State<FirstTimeLogin> {
                 SizedBox(
                   height: 20.0,
                 ),
-                DropdownButtonFormField(
-
-                  hint: Text("Select your status"),
-                    dropdownColor: Colors.grey,
-                    icon: Icon(Icons.arrow_drop_down),
-                    iconSize: 36,
-                    isExpanded: true,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 22
-                    ),
-                  value: status,
-                  onChanged: (newValue) {
-                    setState((){
-                      status = newValue;
-                    });
-                  },
-                  items: statusOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
-                ),
                 SizedBox(
                   height: 20.0,
                 ),
@@ -129,13 +105,10 @@ class _FirstTimeLoginState extends State<FirstTimeLogin> {
 void addUserToDb(User user) async {
     print("Adding user to DATABASE");
     print("Username " + username);
-    print("Status " + status);
   await db.collection("Users").doc(user.uid).set(
       {
         "username" : username,
-        "status" : status,
         "userID" : user.uid,
-
       }).then((_){
     //if successful, go to home page
     Navigator.pushNamed(context, HomePage.homePageID);
