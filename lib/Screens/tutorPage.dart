@@ -14,6 +14,7 @@ class TutorPage extends StatefulWidget {
 
   TutorPage({@required this.tutorObject});
 
+
   @override
   _TutorPageState createState() => _TutorPageState();
 }
@@ -39,27 +40,43 @@ class _TutorPageState extends State<TutorPage> {
               children: [
                 Text(
                   widget.tutorObject.tutorName,
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                      fontSize: 24,
+                    fontFamily: 'Bariol',
+                  ),
                 ),
                 Text(
                   widget.tutorObject.tutorSubject,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                    fontFamily: 'Bariol',
+                  ),
                 ),
                 Text(widget.tutorObject.tutorInstituition,
-                    style: TextStyle(fontSize: 20)),
+                    style: TextStyle(
+                        fontSize: 20,
+                      fontFamily: 'Bariol',
+                    )
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
                   'Rating: '+ widget.tutorObject.tutorRating.toString() +'/5',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                      fontSize: 20,
+                    fontFamily: 'Bariol',
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Reviews',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                      fontSize: 24,
+                    fontFamily: 'Bariol',
+                  ),
                 ),
                 Container(
                   child: FutureBuilder(
@@ -83,83 +100,130 @@ class _TutorPageState extends State<TutorPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      FittedBox(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              snapshot.data[index].reviewerUsername,
-                                              style: TextStyle(fontSize: 20),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            snapshot.data[index].reviewerUsername,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              fontFamily: 'Bariol',
                                             ),
-                                            SizedBox(
-                                              width: 1.0.w,
-                                            ),
-                                            Container(
-                                              color: Colors.blue[50],
-                                              child: Text(
-                                                snapshot.data[index].reviewerStatus,
-                                                 // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
-                                                  style: TextStyle(fontSize: 18)),
-                                            ),
-                                            SizedBox(
-                                              width: 1.0.w,
-                                            ),
-                                            Container(
-                                              color: Colors.purple[50],
-                                              child: Text(
-                                                  snapshot.data[index].reviewSubject,
-                                                  // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
-                                                  style: TextStyle(fontSize: 18)),
-                                            ),
-                                            SizedBox(
-                                              width: 1.0.w,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: Text(
-                                                "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text('5.0',//snapshot.data[index].reviewRating.toString(),
                                                 style: TextStyle(
+                                                    fontSize: 20,
+                                                  fontFamily: 'Bariol',
                                                   fontWeight: FontWeight.bold,
+
                                                 ),
                                               ),
-
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 4,
-                                      ),
-                                      FittedBox(
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                                'Rating: '+ snapshot.data[index].reviewRating.toString()+'/5',
-                                              style: TextStyle(
-                                                fontSize: 18
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 10,right: 8),
+                                                child: Text('/5',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Bariol',
+                                                      fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: 6,
-                                            ),
-                                            Container(
-                                              color: Colors.pink[50],
-                                              child: Text(
-                                                  snapshot
-                                                      .data[index].reviewFilter,
-                                                  style: TextStyle(fontSize: 16)),
-                                            ),
-                                          ],
-                                        ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  snapshot.data[index].reviewerStatus,
+                                                  // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Bariol',
+                                                      fontSize: 16,
+                                                    fontWeight: FontWeight.bold
+                                                  )
+                                              ),
+                                              SizedBox(width: 6,),
+                                              Text('·',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Bariol',
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold
+                                                  )),
+                                              SizedBox(width: 6,),
+                                              Text(
+                                                  snapshot.data[index].reviewSubject,
+                                                  // "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Bariol',
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.bold
+                                                  )
+                                              ),
+                                            ],
+                                          ),
 
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right:8.0),
+                                                child: Text(
+                                                  "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Bariol',
+                                                    fontSize: 16,
+                                                    fontStyle: FontStyle.italic
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+
+                                      ),
                                       SizedBox(
                                         height: 4,
                                       ),
                                       Text(
                                         truncateText(snapshot.data[index].reviewText),
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 20,fontFamily: 'Bariol',),
                                       ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0x26583CDF),
+                                                borderRadius: BorderRadius.all(Radius.circular(20)
+
+                                                ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                  snapshot
+                                                      .data[index].reviewFilter,
+                                                  style: TextStyle(fontSize: 16,fontFamily: 'Bariol',)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      // Text(
+                                      //   truncateText(snapshot.data[index].reviewText),
+                                      //   style: TextStyle(fontSize: 16),
+                                      // ),
                                     ],
                                   ),
                                 );
@@ -172,8 +236,8 @@ class _TutorPageState extends State<TutorPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.lightBlueAccent,
-          foregroundColor: Colors.black,
+          backgroundColor: Color(0xff583CDF),
+          foregroundColor: Color(0xFFF2F2F2),
           onPressed: () {
             Navigator.push(
                 context,
@@ -217,7 +281,7 @@ class _TutorPageState extends State<TutorPage> {
   }
 
 
-  String formatDate(int day, int month, int year){
+  static String formatDate(int day, int month, int year){
    //TODO:  do a switch statement for months later
     String monthName;
     switch(month){
