@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       iconSize: 35,
-                      color: Color(0xFF2F80ED),
+                      color: Color(0xff583CDF),
                       icon: Icon(
                         Icons.arrow_back,
                       ),
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       'Login',
                       style: TextStyle(
-                          fontSize: 27.0.sp,
+                          fontSize: 36.0,
                           fontFamily: 'Bariol',
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Color(0xFFE0E0E0),
+                      fillColor: Color(0xFFe7eaf0),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 0,
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                             : Icons.visibility),
                       ),
                       filled: true,
-                      fillColor: Color(0xFFE0E0E0),
+                      fillColor: Color(0xFFe7eaf0),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 0,
@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                   minWidth: 245,
                   height: 53,
                   child: FlatButton(
-                    color: Color(0xFF2F80ED),
+                    color: Color(0xff583CDF),
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(26.5)),
                     onPressed: () async {

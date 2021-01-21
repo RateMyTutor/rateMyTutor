@@ -47,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         alignment: Alignment.topLeft,
                         child: IconButton(
                             iconSize: 35,
-                            color: Color(0xFF2F80ED),
+                            color: Color(0xff583CDF),
                             icon: Icon(
                               Icons.arrow_back,
                             ),
@@ -69,10 +69,48 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 4.0.h,
+                        height: 18.0.sp,
                       ),
+
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(left: 25.0, bottom: 6.0),
+                        child: Text(
+                          'Username',
+                          style: TextStyle(
+                            fontSize: 14.0.sp,
+                            fontFamily: 'Bariol',
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Required";
+                            } else {
+                              return null;
+                            }
+                          },
+                          onChanged: (value) {
+                            userName = value;
+                          },
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xFFe7eaf0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                const Radius.circular(21.0),
+                              ),
+                            ),
+                          )),
+
                       SizedBox(
-                        height: height*0.05,
+                        height: 15.0.sp,
                       ),
                       Container(
                         alignment: Alignment.topLeft,
@@ -98,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Color(0xFFE0E0E0),
+                            fillColor: Color(0xFFe7eaf0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 width: 0,
@@ -110,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           )),
                       SizedBox(
-                        height: height*0.05,
+                        height: 15.0.sp,
                       ),
                       Container(
                         alignment: Alignment.topLeft,
@@ -147,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               child: Icon(hidePassword ? Icons.visibility_off : Icons.visibility),
                             ),
                             filled: true,
-                            fillColor: Color(0xFFE0E0E0),
+                            fillColor: Color(0xFFe7eaf0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                 width: 0,
@@ -159,16 +197,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           )),
                       SizedBox(
-                        height: height*0.05,
+                        height: 15.0.sp,
                       ),
                       SizedBox(
-                        height: height*0.05,
+                        height: 15.0.sp,
                       ),
                       ButtonTheme(
                         minWidth: 245,
                         height: 53,
                         child: FlatButton(
-                          color: Color(0xFF2F80ED),
+                          color: Color(0xff583CDF),
                           shape: RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(26.5)),
                           onPressed: () async {

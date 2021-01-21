@@ -13,6 +13,7 @@ import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/tutorSearch.dart';
 import 'package:rate_my_tutor/auth_service.dart';
 import 'package:sizer/sizer.dart';
+import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 
 
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
                 controller: _scrollController,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 4.0.h),
+                  padding: const EdgeInsets.only(left: 16.0, top: 40.0, right: 16.0),
                   child:Column(
                         children: [
                           Align(
@@ -168,67 +169,76 @@ class _HomePageState extends State<HomePage> {
                                               CrossAxisAlignment.start,
                                               children: [
                                                 Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Text(
                                                       snapshot.data[index].reviewTutorName,
                                                       style: TextStyle(
-                                                          fontSize: 20),
+                                                        fontSize: 15.0.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontFamily: 'Bariol',
+                                                      ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                      color: Colors.blue[50],
-                                                      child: Text(
-                                                          snapshot.data[index].reviewSubject,
+                                                    Row(
+                                                      children: [
+                                                        Text('5.0',//snapshot.data[index].reviewRating.toString()
                                                           style: TextStyle(
-                                                              fontSize: 18)),
+                                                            fontSize: 15.0.sp,
+                                                            fontFamily: 'Bariol',
+                                                            fontWeight: FontWeight.bold,
+
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 10,right: 8),
+                                                          child: Text('/5',
+                                                            style: TextStyle(
+                                                              fontFamily: 'Bariol',
+                                                              fontSize: 16,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                      color:snapshot.data[index].reviewerUsername == "Anonymous" ? Colors.purple[50]: Colors.white,
-                                                      child: Text(
-                                                        snapshot.data[index].reviewerUsername == "Anonymous" ? snapshot.data[index].reviewerUsername : "",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                              fontSize: 18)),
-                                                    ),
+                                                    // Container(
+                                                    //   color:snapshot.data[index].reviewerUsername == "Anonymous" ? Colors.purple[50]: Colors.white,
+                                                    //   child: Text(
+                                                    //     snapshot.data[index].reviewerUsername == "Anonymous" ? snapshot.data[index].reviewerUsername : "",
+                                                    //       style: TextStyle(
+                                                    //         color: Colors.black,
+                                                    //           fontSize: 18)),
+                                                    // ),
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: 4,
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        snapshot.data[index].reviewSubject,
+                                                      style: TextStyle(
+                                                          fontFamily: 'Bariol',
+                                                          fontSize: 12.0.sp,
+                                                          fontWeight: FontWeight.bold
+                                                      ),
+                                                    ),
+                                                    // Row(
+                                                    //   children: [
+                                                    //     Padding(
+                                                    //       padding: const EdgeInsets.only(right:8.0),
+                                                    //       child: Text(
+                                                    //         "${TutorPage.formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                    //         style: TextStyle(
+                                                    //             fontFamily: 'Bariol',
+                                                    //             fontSize: 16,
+                                                    //             fontStyle: FontStyle.italic
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // ),
+                                                  ],
                                                 ),
-                                                FittedBox(
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'Rating: ' +
-                                                            snapshot.data[index]
-                                                                .reviewRating
-                                                                .toString() +
-                                                            '/5',
-                                                        style: TextStyle(
-                                                            fontSize: 18
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                      Container(
-                                                        color: Colors.pink[50],
-                                                        child: Text(
-                                                            snapshot
-                                                                .data[index]
-                                                                .reviewFilter,
-                                                            style: TextStyle(
-                                                                fontSize: 16)),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-
                                                 SizedBox(
                                                   height: 4,
                                                 ),
@@ -237,8 +247,37 @@ class _HomePageState extends State<HomePage> {
                                                       snapshot.data[index]
                                                           .reviewText),
                                                   style: TextStyle(
-                                                      fontSize: 16),
+                                                    fontSize: 15.0.sp,
+                                                    fontFamily: 'Bariol',
+                                                  ),
                                                 ),
+                                                SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Color(0x26583CDF),
+                                                        borderRadius: BorderRadius.all(Radius.circular(20)
+
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(4.0),
+                                                        child: Text(
+                                                            snapshot
+                                                                .data[index].reviewFilter,
+                                                            style: TextStyle(fontSize: 12.0.sp,fontFamily: 'Bariol',)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                SizedBox(
+                                                  height: 4,
+                                                ),
+
                                               ],
                                             ),
                                           );

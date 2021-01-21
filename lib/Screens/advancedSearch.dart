@@ -10,10 +10,10 @@ class AdvancedSearch extends StatefulWidget {
 }
 
 class _AdvancedSearchState extends State<AdvancedSearch> {
-  String location;
-  String subject;
+  String location = 'Banani';
+  String subject = 'Physics';
   String selectedCurriculum;
-  String classStatus;
+  String classStatus = 'Olevels';
   int selectedRadio;
 
   List curriculum = [
@@ -51,28 +51,36 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(
-            25.0
-        ),
-        child: Center(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(30.0, 70.0, 30.0, 16.0),
           child: Form(
             autovalidateMode: AutovalidateMode.always,
             key: formkey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Enter Search Criteria Below",
+                  "Search",
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
-                  ),
+                      fontSize: 36.0,
+                      fontFamily: 'Bariol',
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 24.0,
                 ),
-
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Subject:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Bariol',
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
                 DropdownButtonFormField(
 
                   hint: Text("Select a subject"),
@@ -100,6 +108,17 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                 SizedBox(
                   height: 20.0,
                 ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Location:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Bariol',
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
                 DropdownButtonFormField(
 
                   hint: Text("Select a location"),
@@ -124,6 +143,20 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                     );
                   }).toList(),
                 ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Class status:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Bariol',
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
                 DropdownButtonFormField(
                   hint: Text("Select a class status"),
                   dropdownColor: Colors.grey[200],
@@ -147,10 +180,23 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                     );
                   }).toList(),
                 ),
-
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Curriculum:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Bariol',
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
                 Row(
                   children: [
-                    Text(curriculum[0]),
+
                     ButtonBar(
                       alignment: MainAxisAlignment.center,
                       children: [
@@ -164,7 +210,11 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                             print("Selected Curriculum: " + selectedCurriculum);
                           },
                         ),
-                        Text(curriculum[1]),
+                        Text(curriculum[0],style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Bariol',
+                          color: Colors.black,
+                        ),),
                         Radio(
                           value: 1,
                           groupValue: selectedRadio,
@@ -175,33 +225,50 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                             print("Selected Curriculum: " + selectedCurriculum);
                           },
                         ),
+                        Text(curriculum[1],style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Bariol',
+                          color: Colors.black,
+                        ),),
+
 
                       ],
                     )
                   ],
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 34.0,
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    //create new Query object
-                    Query query = Query(queryLocation: location, queryClassStatus: classStatus,
-                        queryCurriculum: selectedCurriculum,querySubject: subject);
+                ButtonTheme(
+                  minWidth: 245,
+                  height: 53,
+                  child: FlatButton(
+                    color: Color(0xff583CDF),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(26.5)),
+                    onPressed: () async {
+                      //create new Query object
+                      Query query = Query(queryLocation: location, queryClassStatus: classStatus,
+                          queryCurriculum: selectedCurriculum,querySubject: subject);
 
-                    //now push to the search results page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AdvancedSearchResults(queryObject: query),
+                      //now push to the search results page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdvancedSearchResults(queryObject: query),
+                        ),
+                      );
+                    },
+
+                    child: Text(
+                      'Search',
+                      style: TextStyle(
+                        color: Color(0xFFF2F2F2),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400,
                       ),
-                    );
-                  },
-                  color: Colors.amber,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                  child: Text("Search"),
                 ),
               ],
             ),
