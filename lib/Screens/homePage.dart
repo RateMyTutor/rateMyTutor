@@ -43,37 +43,67 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color(0xFF3DDCFA),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.search),
-                onPressed: (){
-                  showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
+          backgroundColor: Color(0xff583CDF),
+          automaticallyImplyLeading: false,
+          // backgroundColor: Color(0xFF3DDCFA),
+          // actions: <Widget>[
+          //   IconButton(
+          //       icon: Icon(Icons.search),
+          //       onPressed: (){
+          //         showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
+          //
+          //
+          //       },
+          //   ),
+          // ],
+          // title: Text(
+          //     'TutorQuest',
+          //   style: TextStyle(
+          //     fontSize: 25.0,
+          //     fontWeight: FontWeight.bold,
+          //     fontFamily: 'Bariol',
+          //     color: Colors.black,
+          //   ),
+          // ),
+          title: Container(
+            child: TextField(
+              focusNode: FocusNode(),
+              enableInteractiveSelection: false,
+              onTap: (){
+                      showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
 
 
-                },
-            ),
-          ],
-          title: Text(
-              'TutorQuest',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Bariol',
-              color: Colors.black,
+                    },
+
+
+              decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 9.0),
+                  filled: true,
+                  fillColor: Color(0xFFe7eaf0),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      const Radius.circular(21.0),
+                    ),
+                  ),
+                  hintText: 'Search',
+                  prefixIcon: Icon(Icons.search)
+              ),
             ),
           ),
-      leading: IconButton(
-      icon: Icon(Icons.logout),
-      onPressed: () async {
-        uAuth.signOut();
-        Navigator.pushNamed(context,InitialScreen.initialScreenID);
-        print("USer ID : " + uAuth.currentUser.uid);
-        print("Lets see if we can still see it ");
-        print(uAuth.currentUser.displayName);
-        }, //onPressed
-      ),
+      // leading: IconButton(
+      // icon: Icon(Icons.logout),
+      // onPressed: () async {
+      //   uAuth.signOut();
+      //   Navigator.pushNamed(context,InitialScreen.initialScreenID);
+      //   print("USer ID : " + uAuth.currentUser.uid);
+      //   print("Lets see if we can still see it ");
+      //   print(uAuth.currentUser.displayName);
+      //   }, //onPressed
+      // ),
         ),
         body: SingleChildScrollView(
                 controller: _scrollController,
@@ -84,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                                "Welcome,",
+                                "Welcome",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Bariol',
@@ -102,21 +132,23 @@ class _HomePageState extends State<HomePage> {
                             height: 2.0.h,
                           ),
                           ButtonTheme(
-                            minWidth: 10.0.w,
-                            height: 6.0.h,
+                            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), //adds padding inside the button
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, //limits the touch area to the button area
+                            minWidth: 0, //wraps child's width
+                            height: 0, //wraps child's height
                             child: FlatButton(
-                              color: Color(0xFF4DAADD),
+                              color: Color(0xFFcfd2d8),
                               shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(
                                       26.5)),
                               onPressed: () async {},
                               child: Text(
-                                'Edit Profile',
-                                style: TextStyle(
-                                  color: Color(0xFFF2F2F2),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                  "edit profile",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Bariol',
+                                    fontSize: 12.0.sp,
+                                  )
                               ),
                             ),
                           ),
