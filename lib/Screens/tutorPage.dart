@@ -89,7 +89,10 @@ class _TutorPageState extends State<TutorPage> {
                                           children: [
                                             Text(
                                               snapshot.data[index].reviewerUsername,
-                                              style: TextStyle(fontSize: 20),
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 1.0.w,

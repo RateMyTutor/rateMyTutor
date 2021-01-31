@@ -50,160 +50,163 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(
-            25.0
-        ),
-        child: Center(
-          child: Form(
-            autovalidateMode: AutovalidateMode.always,
-            key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Enter Search Criteria Below",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.all(
+              25.0
+          ),
+          child: Center(
+            child: Form(
+              autovalidateMode: AutovalidateMode.always,
+              key: formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Enter Search Criteria Below",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-
-                DropdownButtonFormField(
-
-                  hint: Text("Select a subject"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
+                  SizedBox(
+                    height: 20.0,
                   ),
-                  value: subject,
-                  onChanged: (newValue) {
-                    setState((){
-                      subject  = newValue;
-                    });
-                  },
-                  items: subjectOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                DropdownButtonFormField(
 
-                  hint: Text("Select a location"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
-                  ),
-                  value: location,
-                  onChanged: (newValue) {
-                    setState((){
-                      location = newValue;
-                    });
-                  },
-                  items: locationOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
-                ),
-                DropdownButtonFormField(
-                  hint: Text("Select a class status"),
-                  dropdownColor: Colors.grey[200],
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded:true,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22
-                  ),
-                  value: classStatus,
-                  onChanged: (newValue) {
-                    setState((){
-                      classStatus  = newValue;
-                    });
-                  },
-                  items: classStatusOptions.map((valueItem){
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
-                ),
+                  DropdownButtonFormField(
 
-                Row(
-                  children: [
-                    Text(curriculum[0]),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.center,
-                      children: [
-                        Radio(
-                          value: 0,
-                          groupValue: selectedRadio,
-                          activeColor: Colors.blue,
-                          onChanged: (val){
-                            setSelectedRadio(val);
-                            selectedCurriculum = curriculum[selectedRadio];
-                            print("Selected Curriculum: " + selectedCurriculum);
-                          },
+                    hint: Text("Select a subject"),
+                    dropdownColor: Colors.grey[200],
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 36,
+                    isExpanded: true,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22
+                    ),
+                    value: subject,
+                    onChanged: (newValue) {
+                      setState((){
+                        subject  = newValue;
+                      });
+                    },
+                    items: subjectOptions.map((valueItem){
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  DropdownButtonFormField(
+
+                    hint: Text("Select a location"),
+                    dropdownColor: Colors.grey[200],
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 36,
+                    isExpanded: true,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22
+                    ),
+                    value: location,
+                    onChanged: (newValue) {
+                      setState((){
+                        location = newValue;
+                      });
+                    },
+                    items: locationOptions.map((valueItem){
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                  ),
+                  DropdownButtonFormField(
+                    hint: Text("Select a class status"),
+                    dropdownColor: Colors.grey[200],
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 36,
+                    isExpanded:true,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22
+                    ),
+                    value: classStatus,
+                    onChanged: (newValue) {
+                      setState((){
+                        classStatus  = newValue;
+                      });
+                    },
+                    items: classStatusOptions.map((valueItem){
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                  ),
+
+                  Row(
+                    children: [
+                      Text(curriculum[0]),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.center,
+                        children: [
+                          Radio(
+                            value: 0,
+                            groupValue: selectedRadio,
+                            activeColor: Colors.blue,
+                            onChanged: (val){
+                              setSelectedRadio(val);
+                              selectedCurriculum = curriculum[selectedRadio];
+                              print("Selected Curriculum: " + selectedCurriculum);
+                            },
+                          ),
+                          Text(curriculum[1]),
+                          Radio(
+                            value: 1,
+                            groupValue: selectedRadio,
+                            activeColor: Colors.blue,
+                            onChanged: (val){
+                              setSelectedRadio(val);
+                              selectedCurriculum = curriculum[selectedRadio];
+                              print("Selected Curriculum: " + selectedCurriculum);
+                            },
+                          ),
+
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  RaisedButton(
+                    onPressed: () async {
+                      //create new Query object
+                      Query query = Query(queryLocation: location, queryClassStatus: classStatus,
+                          queryCurriculum: selectedCurriculum,querySubject: subject);
+
+                      //now push to the search results page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdvancedSearchResults(queryObject: query),
                         ),
-                        Text(curriculum[1]),
-                        Radio(
-                          value: 1,
-                          groupValue: selectedRadio,
-                          activeColor: Colors.blue,
-                          onChanged: (val){
-                            setSelectedRadio(val);
-                            selectedCurriculum = curriculum[selectedRadio];
-                            print("Selected Curriculum: " + selectedCurriculum);
-                          },
-                        ),
-
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                RaisedButton(
-                  onPressed: () async {
-                    //create new Query object
-                    Query query = Query(queryLocation: location, queryClassStatus: classStatus,
-                        queryCurriculum: selectedCurriculum,querySubject: subject);
-
-                    //now push to the search results page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AdvancedSearchResults(queryObject: query),
-                      ),
-                    );
-                  },
-                  color: Colors.amber,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                      );
+                    },
+                    color: Colors.amber,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text("Search"),
                   ),
-                  child: Text("Search"),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

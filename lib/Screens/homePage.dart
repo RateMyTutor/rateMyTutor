@@ -288,10 +288,11 @@ String truncateText(String text) {
 Widget displayUsername(BuildContext context, AsyncSnapshot snapshot) {
   if (snapshot.data == null) {
     return Center(
-      child: Container(
-        width: 50,
-        height: 50,
-        child: CircularProgressIndicator(),
+      child: Text(
+      "",
+      style: TextStyle(
+        color: Colors.white,
+      ),
       ),
     );
   } else {
