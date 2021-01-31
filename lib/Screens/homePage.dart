@@ -13,6 +13,7 @@ import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/tutorSearch.dart';
 import 'package:rate_my_tutor/auth_service.dart';
 import 'package:sizer/sizer.dart';
+import 'package:rate_my_tutor/Screens/tutorPage.dart';
 
 
 
@@ -42,48 +43,78 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color(0xFF3DDCFA),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.search),
-                onPressed: (){
-                  showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
+          backgroundColor: Color(0xff583CDF),
+          automaticallyImplyLeading: false,
+          // backgroundColor: Color(0xFF3DDCFA),
+          // actions: <Widget>[
+          //   IconButton(
+          //       icon: Icon(Icons.search),
+          //       onPressed: (){
+          //         showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
+          //
+          //
+          //       },
+          //   ),
+          // ],
+          // title: Text(
+          //     'TutorQuest',
+          //   style: TextStyle(
+          //     fontSize: 25.0,
+          //     fontWeight: FontWeight.bold,
+          //     fontFamily: 'Bariol',
+          //     color: Colors.black,
+          //   ),
+          // ),
+          title: Container(
+            child: TextField(
+              focusNode: FocusNode(),
+              enableInteractiveSelection: false,
+              onTap: (){
+                      showSearch(context: context, delegate: TutorSearch()).then((value) =>  setState((){}));
 
 
-                },
-            ),
-          ],
-          title: Text(
-              'TutorQuest',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Bariol',
-              color: Colors.black,
+                    },
+
+
+              decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 9.0),
+                  filled: true,
+                  fillColor: Color(0xFFe7eaf0),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      const Radius.circular(21.0),
+                    ),
+                  ),
+                  hintText: 'Search',
+                  prefixIcon: Icon(Icons.search)
+              ),
             ),
           ),
-      leading: IconButton(
-      icon: Icon(Icons.logout),
-      onPressed: () async {
-        uAuth.signOut();
-        Navigator.pushNamed(context,InitialScreen.initialScreenID);
-        print("USer ID : " + uAuth.currentUser.uid);
-        print("Lets see if we can still see it ");
-        print(uAuth.currentUser.displayName);
-        }, //onPressed
-      ),
+      // leading: IconButton(
+      // icon: Icon(Icons.logout),
+      // onPressed: () async {
+      //   uAuth.signOut();
+      //   Navigator.pushNamed(context,InitialScreen.initialScreenID);
+      //   print("USer ID : " + uAuth.currentUser.uid);
+      //   print("Lets see if we can still see it ");
+      //   print(uAuth.currentUser.displayName);
+      //   }, //onPressed
+      // ),
         ),
         body: SingleChildScrollView(
                 controller: _scrollController,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 4.0.h),
+                  padding: const EdgeInsets.only(left: 16.0, top: 40.0, right: 16.0),
                   child:Column(
                         children: [
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                                "Welcome,",
+                                "Welcome",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Bariol',
@@ -101,21 +132,23 @@ class _HomePageState extends State<HomePage> {
                             height: 2.0.h,
                           ),
                           ButtonTheme(
-                            minWidth: 10.0.w,
-                            height: 6.0.h,
+                            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0), //adds padding inside the button
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap, //limits the touch area to the button area
+                            minWidth: 0, //wraps child's width
+                            height: 0, //wraps child's height
                             child: FlatButton(
-                              color: Color(0xFF4DAADD),
+                              color: Color(0xFFcfd2d8),
                               shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(
                                       26.5)),
                               onPressed: () async {},
                               child: Text(
-                                'Edit Profile',
-                                style: TextStyle(
-                                  color: Color(0xFFF2F2F2),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                  "edit profile",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Bariol',
+                                    fontSize: 12.0.sp,
+                                  )
                               ),
                             ),
                           ),
@@ -168,67 +201,76 @@ class _HomePageState extends State<HomePage> {
                                               CrossAxisAlignment.start,
                                               children: [
                                                 Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Text(
                                                       snapshot.data[index].reviewTutorName,
                                                       style: TextStyle(
-                                                          fontSize: 20),
+                                                        fontSize: 15.0.sp,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontFamily: 'Bariol',
+                                                      ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                      color: Colors.blue[50],
-                                                      child: Text(
-                                                          snapshot.data[index].reviewSubject,
+                                                    Row(
+                                                      children: [
+                                                        Text('5.0',//snapshot.data[index].reviewRating.toString()
                                                           style: TextStyle(
-                                                              fontSize: 18)),
+                                                            fontSize: 15.0.sp,
+                                                            fontFamily: 'Bariol',
+                                                            fontWeight: FontWeight.bold,
+
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 10,right: 8),
+                                                          child: Text('/5',
+                                                            style: TextStyle(
+                                                              fontFamily: 'Bariol',
+                                                              fontSize: 16,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                      color:snapshot.data[index].reviewerUsername == "Anonymous" ? Colors.purple[50]: Colors.white,
-                                                      child: Text(
-                                                        snapshot.data[index].reviewerUsername == "Anonymous" ? snapshot.data[index].reviewerUsername : "",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                              fontSize: 18)),
-                                                    ),
+                                                    // Container(
+                                                    //   color:snapshot.data[index].reviewerUsername == "Anonymous" ? Colors.purple[50]: Colors.white,
+                                                    //   child: Text(
+                                                    //     snapshot.data[index].reviewerUsername == "Anonymous" ? snapshot.data[index].reviewerUsername : "",
+                                                    //       style: TextStyle(
+                                                    //         color: Colors.black,
+                                                    //           fontSize: 18)),
+                                                    // ),
                                                   ],
                                                 ),
-                                                SizedBox(
-                                                  height: 4,
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                        snapshot.data[index].reviewSubject,
+                                                      style: TextStyle(
+                                                          fontFamily: 'Bariol',
+                                                          fontSize: 12.0.sp,
+                                                          fontWeight: FontWeight.bold
+                                                      ),
+                                                    ),
+                                                    // Row(
+                                                    //   children: [
+                                                    //     Padding(
+                                                    //       padding: const EdgeInsets.only(right:8.0),
+                                                    //       child: Text(
+                                                    //         "${TutorPage.formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                    //         style: TextStyle(
+                                                    //             fontFamily: 'Bariol',
+                                                    //             fontSize: 16,
+                                                    //             fontStyle: FontStyle.italic
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // ),
+                                                  ],
                                                 ),
-                                                FittedBox(
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        'Rating: ' +
-                                                            snapshot.data[index]
-                                                                .reviewRating
-                                                                .toString() +
-                                                            '/5',
-                                                        style: TextStyle(
-                                                            fontSize: 18
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                      Container(
-                                                        color: Colors.pink[50],
-                                                        child: Text(
-                                                            snapshot
-                                                                .data[index]
-                                                                .reviewFilter,
-                                                            style: TextStyle(
-                                                                fontSize: 16)),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-
                                                 SizedBox(
                                                   height: 4,
                                                 ),
@@ -237,8 +279,37 @@ class _HomePageState extends State<HomePage> {
                                                       snapshot.data[index]
                                                           .reviewText),
                                                   style: TextStyle(
-                                                      fontSize: 16),
+                                                    fontSize: 15.0.sp,
+                                                    fontFamily: 'Bariol',
+                                                  ),
                                                 ),
+                                                SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Color(0x26583CDF),
+                                                        borderRadius: BorderRadius.all(Radius.circular(20)
+
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(4.0),
+                                                        child: Text(
+                                                            snapshot
+                                                                .data[index].reviewFilter,
+                                                            style: TextStyle(fontSize: 12.0.sp,fontFamily: 'Bariol',)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                SizedBox(
+                                                  height: 4,
+                                                ),
+
                                               ],
                                             ),
                                           );
