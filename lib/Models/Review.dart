@@ -8,7 +8,7 @@ class Review{
   String reviewerUsername;
   String reviewTutorName;
   String reviewSubject;
-  int reviewRating;
+  double reviewRating;
   DateTime reviewTime;
 
   Review({this.reviewTutorName, this.reviewSubject,this.reviewerID,this.reviewerStatus,this.reviewTutorID,this.reviewText,this.reviewFilter,this.reviewRating,this.reviewTime,this.reviewerUsername});

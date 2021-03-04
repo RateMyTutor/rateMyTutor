@@ -28,7 +28,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
   ];
 
   List locationOptions = [
-    'Banani', 'Gulshan 2', 'Bashundhara', 'Gulshan 1', 'Baridhara', 'Uttara', 'Dhanmondi', 'Mohakhali',
+   'Any', 'Banani', 'Gulshan 2', 'Bashundhara', 'Gulshan 1', 'Baridhara DOHS', 'Uttara', 'Dhanmondi', 'Mohakhali',
     'Mirpur', 'Mohammadpur','Elephant road'
   ];
 
