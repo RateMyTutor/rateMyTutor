@@ -147,7 +147,7 @@ class TutorSearch extends SearchDelegate<String> {
     for( var tutor in tutors.docs){
       final newTutor = Tutor(tutorName: tutor.data()["tutorName"], tutorID: tutor.data()["tutorID"], tutorLocation:
       tutor.data()["tutorLocation"],  tutorRating:double.parse(tutor.data()["tutorRating"]),tutorSubject: tutor.data()["tutorSubject"], tutorInstituition: tutor.data()['tutorInstituition'],
-          tutorCurriculum: tutor.data()['tutorCurriculum']);
+          tutorCurriculum: tutor.data()['tutorCurriculum'],tutorBackground: tutor.data()["tutorBackground"]);
       tutorList.add(newTutor); // add to the list
     }// for loop
 

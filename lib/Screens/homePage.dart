@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     Row(
                                                       children: [
-                                                        Text('5.0',//snapshot.data[index].reviewRating.toString()
+                                                        Text(snapshot.data[index].reviewRating.toString(),
                                                           style: TextStyle(
                                                             fontSize: 15.0.sp,
                                                             fontFamily: 'Bariol',
@@ -275,23 +275,7 @@ class _HomePageState extends State<HomePage> {
                                                   height: 8,
                                                 ),
                                                 Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        color: Color(0x26583CDF),
-                                                        borderRadius: BorderRadius.all(Radius.circular(20)
-
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(4.0),
-                                                        child: Text(
-                                                            snapshot
-                                                                .data[index].reviewFilter,
-                                                            style: TextStyle(fontSize: 12.0.sp,fontFamily: 'Bariol',)),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  children: createFilters(snapshot.data[index].reviewFilter)
                                                 ),
 
                                                 SizedBox(
@@ -342,7 +326,32 @@ String truncateText(String text) {
       ? text
       : '${text.substring(0, cutoff)}...';
 }
+List<Widget> createFilters(String filters){
+  List filterList = filters.split(',');
+  List<Widget> list = [];
+  for (var filter in filterList){
+    list.add(Container(
+      decoration: BoxDecoration(
+        color: Color(0x26583CDF),
+        borderRadius: BorderRadius.all(Radius.circular(20)
 
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Text(
+            filter,
+            style: TextStyle(fontSize: 16,fontFamily: 'Bariol',)),
+      ),
+    ));
+    list.add(
+        SizedBox(
+          width: 4,
+        )
+    );
+  }
+  return list;
+}
 
 Widget displayUsername(BuildContext context, AsyncSnapshot snapshot) {
   if (snapshot.data == null) {

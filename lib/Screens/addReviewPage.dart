@@ -159,25 +159,21 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     color: Colors.blue[200],
                     onPressed: () async {
                       UserArg currentUser = await Database().getUserFromDB(uAuth.currentUser.uid);
-
-                      await db.collection("Tutors").doc(widget.tutorObject.tutorID).update({
-                        "tutorRating" : await Database().getTutorRatingAvg(widget.tutorObject.tutorID)
-                      });
-
+                      // await db.collection("Tutors").doc(widget.tutorObject.tutorID).update({
+                      //   "tutorRating" : await Database().getTutorRatingAvg(widget.tutorObject.tutorID)
+                      // });
                       await db.collection("Reviews").doc().set({
                         "reviewText": myController.text,
                         "reviewerStatus": curriculum,
                         "reviewTutorID": widget.tutorObject.tutorID,
                         "reviewerID":  uAuth.currentUser.uid,
-                        "reviewFilter": AddReviewPage.list[0],
+                        "reviewFilter": AddReviewPage.list.join(', '),
                         "reviewRating" : tutorRating.toString(),
                         "reviewerUsername": checkedValue == true ? "Anonymous" : currentUser.username,
                         "reviewTutorName" : widget.tutorObject.tutorName,
                         "reviewSubject" : widget.tutorObject.tutorSubject, // TODO: but we need to get it from the add review page, as different subject can be selected since teachers can various subjects
                         "reviewTime": DateTime.now(),
                       }).then((value) => Navigator.pop(context));
-
-
                     },
                     child: Text('Post review')),
               )

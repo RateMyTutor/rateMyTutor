@@ -9,8 +9,9 @@ class Tutor{
   double tutorRating;
   String tutorInstituition;
   String tutorCurriculum;
+  String tutorBackground;
 
-  Tutor({this.tutorName,this.tutorID,this.tutorLocation,this.tutorRating,this.tutorSubject,this.tutorInstituition,this.tutorCurriculum});
+  Tutor({this.tutorName,this.tutorID,this.tutorLocation,this.tutorRating,this.tutorSubject,this.tutorInstituition,this.tutorCurriculum,this.tutorBackground});
 
   String getTutorLocation(){
     String location;
