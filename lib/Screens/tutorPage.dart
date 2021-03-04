@@ -14,7 +14,6 @@ class TutorPage extends StatefulWidget {
 
   TutorPage({@required this.tutorObject});
 
-
   @override
   _TutorPageState createState() => _TutorPageState();
 }
