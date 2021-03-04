@@ -14,7 +14,6 @@ class TutorPage extends StatefulWidget {
 
   TutorPage({@required this.tutorObject});
 
-
   @override
   _TutorPageState createState() => _TutorPageState();
 }
@@ -31,10 +30,12 @@ class _TutorPageState extends State<TutorPage> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     tutorLocation = widget.tutorObject.getTutorLocation();
     tutorSubject = widget.tutorObject.getTutorSubject();
+
     return MaterialApp(
       home: Scaffold(
         body: Padding(
@@ -57,6 +58,12 @@ class _TutorPageState extends State<TutorPage> {
                       fontSize: 20,
                     fontFamily: 'Bariol',
                   ),
+                ),
+                Text("Ex-teacher at: "+ widget.tutorObject.tutorBackground,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Bariol',
+                    )
                 ),
                 Text(widget.tutorObject.tutorInstituition,
                     style: TextStyle(
@@ -85,7 +92,7 @@ class _TutorPageState extends State<TutorPage> {
                   ),
                 ),
                 Container(
-                  child: FutureBuilder(
+                    child: FutureBuilder(
                       future: Database().getTutorReviewsFromDB(widget.tutorObject.tutorID),
                       builder: (context, snapshot) {
                         if (snapshot.data == null) {
@@ -123,7 +130,7 @@ class _TutorPageState extends State<TutorPage> {
                                           ),
                                           Row(
                                             children: [
-                                              Text('5.0',//snapshot.data[index].reviewRating.toString(),
+                                              Text(snapshot.data[index].reviewRating.toString(),
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                   fontFamily: 'Bariol',
@@ -208,23 +215,8 @@ class _TutorPageState extends State<TutorPage> {
                                         height: 8,
                                       ),
                                       Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0x26583CDF),
-                                                borderRadius: BorderRadius.all(Radius.circular(20)
-
-                                                ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                  snapshot
-                                                      .data[index].reviewFilter,
-                                                  style: TextStyle(fontSize: 16,fontFamily: 'Bariol',)),
-                                            ),
-                                          ),
-                                        ],
+                                        children: createFilters(snapshot.data[index].reviewFilter)
+                                        ,
                                       ),
 
                                       SizedBox(
@@ -289,7 +281,32 @@ class _TutorPageState extends State<TutorPage> {
         ? text
         : '${text.substring(0, cutoff)}...';
   }
+  List<Widget> createFilters(String filters){
+    List filterList = filters.split(',');
+    List<Widget> list = [];
+    for (var filter in filterList){
+      list.add(Container(
+        decoration: BoxDecoration(
+          color: Color(0x26583CDF),
+          borderRadius: BorderRadius.all(Radius.circular(20)
 
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+              filter,
+              style: TextStyle(fontSize: 16,fontFamily: 'Bariol',)),
+        ),
+      ));
+      list.add(
+          SizedBox(
+              width: 4,
+          )
+      );
+    }
+    return list;
+  }
 
   static String formatDate(int day, int month, int year){
    //TODO:  do a switch statement for months later
