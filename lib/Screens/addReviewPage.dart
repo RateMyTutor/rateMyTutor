@@ -25,7 +25,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
   final myController = TextEditingController();
   String curriculum;
   String id;
-  int tutorRating = 3;
+  double tutorRating = 3.0;
   dynamic currentUser;
   setSelectedRadio(int val) {
     setState(() {
@@ -119,7 +119,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (rating) {
-                  tutorRating = rating.toInt();
+                  tutorRating = rating;
                 },
               ),
               Text(
@@ -159,19 +159,25 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     color: Colors.blue[200],
                     onPressed: () async {
                       UserArg currentUser = await Database().getUserFromDB(uAuth.currentUser.uid);
-                      print("Hello Mello");
+
+                      await db.collection("Tutors").doc(widget.tutorObject.tutorID).update({
+                        "tutorRating" : await Database().getTutorRatingAvg(widget.tutorObject.tutorID)
+                      });
+
                       await db.collection("Reviews").doc().set({
                         "reviewText": myController.text,
                         "reviewerStatus": curriculum,
                         "reviewTutorID": widget.tutorObject.tutorID,
                         "reviewerID":  uAuth.currentUser.uid,
                         "reviewFilter": AddReviewPage.list[0],
-                        "reviewRating" : tutorRating,
+                        "reviewRating" : tutorRating.toString(),
                         "reviewerUsername": checkedValue == true ? "Anonymous" : currentUser.username,
                         "reviewTutorName" : widget.tutorObject.tutorName,
                         "reviewSubject" : widget.tutorObject.tutorSubject, // TODO: but we need to get it from the add review page, as different subject can be selected since teachers can various subjects
                         "reviewTime": DateTime.now(),
                       }).then((value) => Navigator.pop(context));
+
+
                     },
                     child: Text('Post review')),
               )

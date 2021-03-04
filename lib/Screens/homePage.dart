@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_my_tutor/Backend/Database.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/advancedSearch.dart';
+import 'package:rate_my_tutor/Screens/editProfilePage.dart';
 import 'package:rate_my_tutor/Screens/initialScreen.dart';
 import 'package:rate_my_tutor/Screens/loginPage.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
@@ -141,7 +142,9 @@ class _HomePageState extends State<HomePage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(
                                       26.5)),
-                              onPressed: () async {},
+                              onPressed: () async {
+                                Navigator.pushNamed(context, EditProfilePage.EditProfilePageID);
+                              },
                               child: Text(
                                   "edit profile",
                                   textAlign: TextAlign.center,
@@ -254,21 +257,6 @@ class _HomePageState extends State<HomePage> {
                                                           fontWeight: FontWeight.bold
                                                       ),
                                                     ),
-                                                    // Row(
-                                                    //   children: [
-                                                    //     Padding(
-                                                    //       padding: const EdgeInsets.only(right:8.0),
-                                                    //       child: Text(
-                                                    //         "${TutorPage.formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
-                                                    //         style: TextStyle(
-                                                    //             fontFamily: 'Bariol',
-                                                    //             fontSize: 16,
-                                                    //             fontStyle: FontStyle.italic
-                                                    //         ),
-                                                    //       ),
-                                                    //     ),
-                                                    //   ],
-                                                    // ),
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -359,10 +347,11 @@ String truncateText(String text) {
 Widget displayUsername(BuildContext context, AsyncSnapshot snapshot) {
   if (snapshot.data == null) {
     return Center(
-      child: Container(
-        width: 50,
-        height: 50,
-        child: CircularProgressIndicator(),
+      child: Text(
+      "",
+      style: TextStyle(
+        color: Colors.white,
+      ),
       ),
     );
   } else {

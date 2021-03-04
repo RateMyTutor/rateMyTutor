@@ -56,11 +56,16 @@ class TutorSearch extends SearchDelegate<String> {
     print("calling to fill tutor names");
     if(tutorList.isEmpty){
       getTutorsFromDB();
+    }else{
+      print("Trying to get it second time");
+      for(Tutor tutor in tutorList){
+        print(tutor.tutorSubject + " " + tutor.tutorName + "\n");
+      }
     }
 
-    if(tutorUsernames.isEmpty){
-      fillTutorUsername();
-    }
+    // if(tutorUsernames.isEmpty){
+    //   fillTutorUsername();
+    // }
 
     return IconButton(
       icon: AnimatedIcon(
@@ -90,7 +95,7 @@ class TutorSearch extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context)  {
     print(query);
     final emptyList = [];
-    List list = (query.isEmpty ? emptyList : tutorList.where((p) => p.tutorName.startsWith(query)).toList()) ;
+    List list = (query.isEmpty ? emptyList : tutorList.where((p) => p.tutorName.toUpperCase().startsWith(query.toUpperCase())).toList()) ;
     print(list);
 
     // TODO: implement buildSuggestions
@@ -124,8 +129,7 @@ class TutorSearch extends SearchDelegate<String> {
         ),
         ),
         subtitle: Text(
-
-          tutorList[index].tutorSubject+ " (" + tutorList[index].tutorCurriculum + ")",
+          tutorList[tutorList.indexOf(list[index])].getTutorSubject() + " (" + tutorList[tutorList.indexOf(list[index])].tutorCurriculum + ")",
         ),
       ),
       itemCount: list.length,
@@ -135,15 +139,19 @@ class TutorSearch extends SearchDelegate<String> {
 
   // method fils up the tutors
   void getTutorsFromDB() async {
+    if(tutorList.isNotEmpty){
+      return;
+    }
     final tutors = await _db.collection("Tutors").get();
+    print(tutors.size);
     for( var tutor in tutors.docs){
       final newTutor = Tutor(tutorName: tutor.data()["tutorName"], tutorID: tutor.data()["tutorID"], tutorLocation:
-      tutor.data()["tutorLocation"], tutorRating: tutor.data()["tutorRating"],tutorSubject: tutor.data()["tutorSubject"], tutorInstituition: tutor.data()['tutorInstituition'],
+      tutor.data()["tutorLocation"],  tutorRating:double.parse(tutor.data()["tutorRating"]),tutorSubject: tutor.data()["tutorSubject"], tutorInstituition: tutor.data()['tutorInstituition'],
           tutorCurriculum: tutor.data()['tutorCurriculum']);
       tutorList.add(newTutor); // add to the list
     }// for loop
 
-    print(tutorList);
+
 
   }// getTutorsFromDB
 

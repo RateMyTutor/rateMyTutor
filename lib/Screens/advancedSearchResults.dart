@@ -60,7 +60,7 @@ class _AdvancedSearchResultsState extends State<AdvancedSearchResults> {
                        snapshot.data[index].tutorName,
                   ),
                   subtitle: Text(
-                    snapshot.data[index].tutorSubject,
+                    snapshot.data[index].getTutorSubject(),
                      // snapshot.data[index].+ " (" + tutorList[index].tutorCurriculum + ")",
                  ),
                ),

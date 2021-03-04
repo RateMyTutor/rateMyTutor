@@ -28,7 +28,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
   ];
 
   List locationOptions = [
-    'Banani', 'Gulshan 2', 'Bashundhara', 'Gulshan 1', 'Baridhara', 'Uttara', 'Dhanmondi', 'Mohakhali',
+   'Any', 'Banani', 'Gulshan 2', 'Bashundhara', 'Gulshan 1', 'Baridhara DOHS', 'Uttara', 'Dhanmondi', 'Mohakhali',
     'Mirpur', 'Mohammadpur','Elephant road'
   ];
 
@@ -50,7 +50,10 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(30.0, 70.0, 30.0, 16.0),
@@ -260,6 +263,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
                       );
                     },
 
+
                     child: Text(
                       'Search',
                       style: TextStyle(
@@ -275,7 +279,7 @@ class _AdvancedSearchState extends State<AdvancedSearch> {
           ),
         ),
       ),
-    );
+      ));
   }//build
 
   void validate() async {

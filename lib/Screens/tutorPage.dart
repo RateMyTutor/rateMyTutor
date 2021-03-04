@@ -23,11 +23,17 @@ class _TutorPageState extends State<TutorPage> {
   final firestoreInstance = FirebaseFirestore.instance;
   final _db = FirebaseFirestore.instance;
   ScrollController _scrollController = new ScrollController();
+  String time;
+  String tutorLocation;
+  String tutorSubject;
+
 
 
 
   @override
   Widget build(BuildContext context) {
+    tutorLocation = widget.tutorObject.getTutorLocation();
+    tutorSubject = widget.tutorObject.getTutorSubject();
     return MaterialApp(
       home: Scaffold(
         body: Padding(
@@ -45,7 +51,7 @@ class _TutorPageState extends State<TutorPage> {
                   ),
                 ),
                 Text(
-                  widget.tutorObject.tutorSubject,
+                  tutorSubject,
                   style: TextStyle(
                       fontSize: 20,
                     fontFamily: 'Bariol',
@@ -95,10 +101,13 @@ class _TutorPageState extends State<TutorPage> {
                               shrinkWrap: true,
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
+                                time = snapshot.data[index].reviewTime == null ? "February 22 2021" : "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}";
+                                print(time);
                                 return Card(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -108,6 +117,7 @@ class _TutorPageState extends State<TutorPage> {
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
                                               fontFamily: 'Bariol',
+
                                             ),
                                           ),
                                           Row(
@@ -173,7 +183,7 @@ class _TutorPageState extends State<TutorPage> {
                                               Padding(
                                                 padding: const EdgeInsets.only(right:8.0),
                                                 child: Text(
-                                                  "${formatDate(snapshot.data[index].reviewTime.day, snapshot.data[index].reviewTime.month, snapshot.data[index].reviewTime.year)}",
+                                                  time, // string variable holding time
                                                   style: TextStyle(
                                                       fontFamily: 'Bariol',
                                                     fontSize: 16,
