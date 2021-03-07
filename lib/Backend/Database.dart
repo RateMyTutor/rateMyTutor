@@ -203,4 +203,16 @@ class Database {
     return sum/count;
   }
 
+  Future<String> getTutorContact(String tutorID) async {
+    String tutorContact = "tel:";
+    final tutors = await db
+        .collection("Tutors")
+        .where("tutorID", isEqualTo: tutorID)
+        .get();
+    for (var tutor in tutors.docs) {
+      tutorContact += tutor["tutorContact"];
+    } // for loop
+    return tutorContact;
+  }
+
 }

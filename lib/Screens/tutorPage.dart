@@ -7,12 +7,16 @@ import 'package:rate_my_tutor/Models/Review.dart';
 import 'package:rate_my_tutor/Models/Tutor.dart';
 import 'package:rate_my_tutor/Screens/addReviewPage.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
 
 class TutorPage extends StatefulWidget {
 
   Tutor tutorObject;
 
   TutorPage({@required this.tutorObject});
+
 
   @override
   _TutorPageState createState() => _TutorPageState();
@@ -26,8 +30,17 @@ class _TutorPageState extends State<TutorPage> {
   String time;
   String tutorLocation;
   String tutorSubject;
+  dynamic tutorContact;
 
 
+  void launchDialer(String tutorContact) async{
+    if(await canLaunch(tutorContact)){
+      await launch(tutorContact);
+    }else{
+      print("ERROR: Couldn't launch dialer");
+    }
+
+  }
 
 
 
@@ -51,6 +64,18 @@ class _TutorPageState extends State<TutorPage> {
                       fontSize: 24,
                     fontFamily: 'Bariol',
                   ),
+                ),
+                Row(
+                  children: [
+                    RaisedButton(
+                        onPressed: () async {
+                          tutorContact = await Database().getTutorContact(widget.tutorObject.tutorID);
+                          print("Tutor contact is "  + tutorContact);
+                          launchDialer(tutorContact);
+                        },
+                        child: Text("Contact me"),
+
+                    )],
                 ),
                 Text(
                   tutorSubject,
